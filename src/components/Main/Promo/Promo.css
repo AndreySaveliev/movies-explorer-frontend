@@ -1,0 +1,30 @@
+.promo {
+  background-color: #073042;
+  width: 100%;
+  background-image: url(../../../images/landing.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.promo__title {
+  width: 730px;
+  padding: 184px 0 224px 0;
+  margin: 0 auto;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+}
+
+@media screen and (max-width: 767px) and (min-width: 320px) {
+  .promo {
+    background-size: 92%;
+  }
+  .promo__title {
+    width: 300px;
+    font-size: 31px;
+    line-height: 39px;
+  }
+}

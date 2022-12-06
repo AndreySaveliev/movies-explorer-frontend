@@ -1,0 +1,120 @@
+.about {
+  width: 100%;
+  background-color: #202020;
+}
+.about__wrapper {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;  
+  width: 89%;
+}
+.about__title {
+  margin: 110px 0 23px 0;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+}
+.about__text {
+  padding-top: 69px;
+  border-top: 1px solid #dadada;
+  display: flex;
+  flex-direction: row;
+}
+.text__paragraph {
+  width: 48%;
+}
+.paragraph__title {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+}
+.paragraph__text {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #FFFFFF;
+  margin-bottom: 110px;
+}
+.about__progress {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 110px;
+}
+.progress__cell {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.progress__cell_back {
+  width: 33.3%;
+  background-color: #3DDC84;
+  color: #000;
+}
+.progress__cell_front {
+  width: 66.6%;
+  background-color: #303030;
+  color: #fff;
+}
+.progress__cell_front, .progress__cell_back {
+  padding: 9px 0;
+  text-align: center;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+} 
+.progress__name {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.progress__name_back {
+  width: 33.3%;
+}
+.progress__name_front {
+  width: 66.6%;
+}
+
+.progress__name_front, .progress__name_back {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #8B8B8B;
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) and (min-width: 320px) {
+  .about__text {
+    flex-direction: column;
+    padding-top: 60px;
+  }
+  .text__paragraph {
+    width: 100%;
+  }
+  .paragraph__text {
+    margin-bottom: 56px;
+  }
+  .progress__cell_front, .progress__cell_back {
+    font-size: 11px;
+    line-height: 13px;
+  }
+  .progress__name_front, .progress__name_back {
+    font-size: 11px;
+    line-height: 13px;
+  }
+  .about__progress {
+    margin-bottom: 70px;
+  }
+}
