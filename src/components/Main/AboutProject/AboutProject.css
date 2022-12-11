@@ -2,11 +2,12 @@
   width: 100%;
   background-color: #202020;
 }
-.about__wrapper {
+.about-wrapper {
   margin: 0 auto;
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   width: 89%;
+  max-width: 1140px;
 }
 .about__title {
   margin: 110px 0 23px 0;
@@ -15,31 +16,32 @@
   font-size: 22px;
   line-height: 27px;
   letter-spacing: -0.04em;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .about__text {
   padding-top: 69px;
   border-top: 1px solid #dadada;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
-.text__paragraph {
+.about__paragraph {
   width: 48%;
 }
-.paragraph__title {
+.about__title {
   font-family: 'Inter';
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
   letter-spacing: -0.04em;
-  color: #FFFFFF;
+  color: #ffffff;
 }
-.paragraph__text {
+.about__item {
   font-family: 'Inter';
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: 110px;
 }
 .about__progress {
@@ -48,22 +50,23 @@
   width: 100%;
   margin-bottom: 110px;
 }
-.progress__cell {
+.about__cell {
   width: 100%;
   display: flex;
   flex-direction: row;
 }
-.progress__cell_back {
-  width: 33.3%;
-  background-color: #3DDC84;
+.about__cell_back {
+  width: 228px;
+  background-color: #3ddc84;
   color: #000;
 }
-.progress__cell_front {
-  width: 66.6%;
+.about__cell_front {
+  width: 912px;
   background-color: #303030;
   color: #fff;
 }
-.progress__cell_front, .progress__cell_back {
+.about__cell_front,
+.about__cell_back {
   padding: 9px 0;
   text-align: center;
   font-family: 'Inter';
@@ -72,26 +75,27 @@
   font-size: 14px;
   line-height: 17px;
   text-align: center;
-} 
-.progress__name {
+}
+.about__name {
   width: 100%;
   display: flex;
   flex-direction: row;
 }
-.progress__name_back {
-  width: 33.3%;
+.about__name_back {
+  width: 228px;
 }
-.progress__name_front {
-  width: 66.6%;
+.about__name_front {
+  width: 912px;
 }
 
-.progress__name_front, .progress__name_back {
+.about__name_front,
+.about__name_back {
   font-family: 'Inter';
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
   text-align: center;
-  color: #8B8B8B;
+  color: #8b8b8b;
   text-align: center;
 }
 
@@ -100,17 +104,19 @@
     flex-direction: column;
     padding-top: 60px;
   }
-  .text__paragraph {
+  .about__paragraph {
     width: 100%;
   }
-  .paragraph__text {
+  .about__item {
     margin-bottom: 56px;
   }
-  .progress__cell_front, .progress__cell_back {
+  .about__cell_front,
+  .about__cell_back {
     font-size: 11px;
     line-height: 13px;
   }
-  .progress__name_front, .progress__name_back {
+  .about__name_front,
+  .about__name_back {
     font-size: 11px;
     line-height: 13px;
   }
