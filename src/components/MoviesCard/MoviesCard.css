@@ -37,10 +37,25 @@
   border: none ;
   top: 219px;
   right: 16px;
+  cursor: pointer;
+  transition: 0.5s;
 }
 
 .moviecard__like:hover {
+  opacity: 0.5;
+}
+
+.moviecard__like_liked {
+  background-image: url(../../images/liked.svg);
+}
+
+.moviecard__like_unlike {
   background-image: url(../../images/unlike.svg);
+  opacity: 0;
+}
+
+.moviecard:hover .moviecard__like_unlike {
+  opacity: 1;
 }
 
 @media screen and (max-width: 1279px) and (min-width: 768px) {

@@ -1,20 +1,31 @@
 import React from 'react';
-import Footer from '../Footer/Footer';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList() {
+function MoviesCardList({ isSaved }) {
   return (
-    <div className="moviescardlist">
-      <div className="moviescardlist__wrapper">
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-        <MoviesCard />
-      </div>
-    </div>
+    <section className="moviescardlist">
+      {isSaved ? (
+        <div className="moviescardlist--wrapper">
+          <MoviesCard isLiked={true} isSaved={isSaved} />
+          <MoviesCard isLiked={true} isSaved={isSaved} />
+          <MoviesCard isLiked={true} isSaved={isSaved} />
+          <MoviesCard isLiked={true} isSaved={isSaved} />
+          <MoviesCard isLiked={true} isSaved={isSaved} />
+          <MoviesCard isLiked={true} isSaved={isSaved} />
+          <MoviesCard isLiked={true} isSaved={isSaved} />
+        </div>
+      ) : (
+        <div className="moviescardlist--wrapper">
+          <MoviesCard isLiked={true} isSaved={isSaved} />
+          <MoviesCard isLiked={false} isSaved={isSaved} />
+          <MoviesCard isLiked={false} isSaved={isSaved} />
+          <MoviesCard isLiked={false} isSaved={isSaved} />
+          <MoviesCard isLiked={false} isSaved={isSaved} />
+          <MoviesCard isLiked={true} isSaved={isSaved} />
+          <MoviesCard isLiked={false} isSaved={isSaved} />
+        </div>
+      )}
+    </section>
   );
 }
 

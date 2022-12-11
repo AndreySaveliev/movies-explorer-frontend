@@ -9,7 +9,7 @@ function Movies() {
     <div className='movies'>
       <Header isLogged={true} isMain={false} />
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList isSaved={false} />
       <button className="movies__btn_more">Ещё</button>
       <Footer/>
     </div>
