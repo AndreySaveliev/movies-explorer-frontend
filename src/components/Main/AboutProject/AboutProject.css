@@ -120,6 +120,14 @@
     font-size: 11px;
     line-height: 13px;
   }
+  .about__cell_front,
+  .about__name_front {
+    width: 184px;
+  }
+  .about__cell_back,
+  .about__name_back {
+    width: 100px;
+  }
   .about__progress {
     margin-bottom: 70px;
   }
