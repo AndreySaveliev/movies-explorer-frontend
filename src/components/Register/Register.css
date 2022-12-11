@@ -1,7 +1,9 @@
 .register {
   width: 100%;
   background-color: #202020;
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 .register__header {
   margin: 0 auto;
@@ -27,6 +29,8 @@
 .register__form {
   display: flex;
   flex-direction: column;
+  width: 396px;
+  margin: 0 auto;
 }
 .register__form-input {
   padding: 15px;
@@ -50,9 +54,8 @@
   color: #8B8B8B;
 }
 .register__btn_signup {
-  width: 100%;
-  margin-top: 69px;
-  margin-bottom: 16px;
+  width: 396px;
+  margin: 69px auto 16px;
   padding: 13px 0 15px 0;
   background-color: #4285f4;
   border-radius: 3px;
@@ -92,7 +95,16 @@
   .register__header-logo {
     margin: 0 auto;
   }
+  .register__form {
+    width: 260px;
+  }
+  .register__btn_signup {
+    width: 260px;
+  }
   .register__header-title {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 80px;
     width: 260px;
   }
   .register__header {
