@@ -5,7 +5,7 @@ function MoviesCardList({ isSaved }) {
   return (
     <section className="moviescardlist">
       {isSaved ? (
-        <div className="moviescardlist--wrapper">
+        <div className="moviescardlist-wrapper">
           <MoviesCard isLiked={true} isSaved={isSaved} />
           <MoviesCard isLiked={true} isSaved={isSaved} />
           <MoviesCard isLiked={true} isSaved={isSaved} />
@@ -15,7 +15,7 @@ function MoviesCardList({ isSaved }) {
           <MoviesCard isLiked={true} isSaved={isSaved} />
         </div>
       ) : (
-        <div className="moviescardlist--wrapper">
+        <div className="moviescardlist-wrapper">
           <MoviesCard isLiked={true} isSaved={isSaved} />
           <MoviesCard isLiked={false} isSaved={isSaved} />
           <MoviesCard isLiked={false} isSaved={isSaved} />
