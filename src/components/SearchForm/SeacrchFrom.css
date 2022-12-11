@@ -11,14 +11,15 @@
   position: relative;
   padding-bottom: 70px;
   border-bottom: 1px solid #424242;
+  max-width: 1140px;
 }
-.form__input {
+.searchform__input {
   background-color: #2f2f2f;
   border: none;
   border-radius: 40px;
   padding: 14px 22px;
 }
-.form__btn {
+.searchform__btn {
   position: absolute;
   background-image: url(../../images/findicon.svg);
   width: 34px;
@@ -30,6 +31,11 @@
   border-radius: 17px;
   top: 6px;
   right: 6px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.searchform__btn:hover {
+  opacity: 0.5;
 }
 .searchform__toggle {
   display: flex;
@@ -37,13 +43,14 @@
   position: relative;
   margin: 42px auto 0;
 }
-.form__checkbox {
+.searchform__checkbox {
   z-index: 1;
   width: 36px;
   margin-right: 12px;
-  opacity: 0
+  opacity: 0;
+  cursor: pointer;
 }
-.form__switch {
+.searchform__switch {
   width: 36px;
   height: 20px;
   background-color: #fff;
@@ -52,9 +59,9 @@
   top: 1px;
 }
 
-.form__switch::before {
+.searchform__switch::before {
   position: absolute;
-  content: "";
+  content: '';
   width: 16px;
   height: 16px;
   background-color: #2f2f2f;
@@ -64,25 +71,24 @@
   transition: 0.3s;
 }
 
-.form__checkbox:checked + .form__switch {
+.searchform__checkbox:checked + .searchform__switch {
   background-color: #3ddc84;
 }
 
-.form__checkbox:checked + .form__switch::before {
+.searchform__checkbox:checked + .searchform__switch::before {
   left: 18px;
 }
 
-.form__text {
+.searchform__text {
   font-family: 'Inter';
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0;
 }
 
 @media screen and (max-width: 1279px) and (min-width: 768px) {
- 
 }
 @media screen and (max-width: 767px) and (min-width: 320px) {
   .searchform__form {
