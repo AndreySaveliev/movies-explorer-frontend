@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  max-width: 1140px;
 }
 .footer__caption {
   font-family: 'Inter';
@@ -51,6 +52,11 @@
   text-decoration: none;
   color: #fff;
   margin-left: 20px;
+  transition: 0.5s;
+}
+
+.footer__link_out:hover {
+  opacity: 0.5;
 }
 
 
