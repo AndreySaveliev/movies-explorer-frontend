@@ -6,15 +6,15 @@ import SearchForm from '../SearchForm/SearchForm';
 
 function SavedMovies() {
   return (
-    <div className="savedmovies">
+    <main className="savedmovies">
       <div className="savedmovies__wrapper">
         <Header isLogged={true}
         />
         <SearchForm />
-        <MoviesCardList />
+        <MoviesCardList isSaved={true}/>
         <Footer />
       </div>
-    </div>
+    </main>
   );
 }
 
