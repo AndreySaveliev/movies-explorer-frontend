@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 function Profile({name, email}) {
 
   return (
-    <div className='profile'>
+    <section className='profile'>
       <Header 
       isLogged={true}/>
       <div className='profile__wrapper'>
@@ -18,7 +18,7 @@ function Profile({name, email}) {
         <button className='profile__btn profile__button_edit'>Редактировать</button>
         <Link to='/signin' className='profile__btn profile__button_signout'>Выйти из аккаунта</Link>
       </div>
-    </div>
+    </section>
   )
 }
 
