@@ -2,7 +2,7 @@ import React from 'react'
 
 function Footer() {
   return (
-    <div className='footer'>
+    <footer className='footer'>
       <div className='footer__wrapper'>
         <p className='footer__caption'>Учебный проект Яндекс.Практикум х BeatFilm.</p>
         <div className='footer__info'>
@@ -13,7 +13,7 @@ function Footer() {
           </ul>
         </div>
       </div>
-    </div>
+    </footer>
   )
 }
 
