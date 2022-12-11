@@ -3,15 +3,20 @@
   width: 100%;
 }
 
-.header__promo {
+.header-promo {
   background-color: #073042;
 }
-.header__logo {
+.header-wrapper__logo {
   background-image: url(../../images/logo.svg);
   width: 38px;
   height: 38px;
+  transition: 0.5s;
 }
-.header__wrapper {
+.header-wrapper__logo:hover {
+  opacity: 0.5;
+}
+.header-wrapper {
+  max-width: 1140px;
   width: 89%;
   display: flex;
   flex-direction: row;
@@ -21,12 +26,12 @@
   align-items: center;
   position: relative;
 }
-.header__navbar {
+.header-navbar {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.header__btn {
+.header-navbar__btn {
   text-decoration: none;
   color: #fff;
   width: fit-content;
@@ -34,18 +39,22 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
+  transition: 0.5s;
 }
-.header__btn_main {
+.header-navbar__btn:hover {
+  opacity: 0.5;
+}
+.header-navbar__btn_main {
   display: none;
 }
-.header__btn_savfilm {
+.header-navbar__btn_savfilm {
   margin: 0 50px 0 20px;
 }
-.header__btn_user {
+.header-navbar__btn_user {
   margin: 0 17px 0 0;
 }
-.header__userimg {
-  background-image: url(../../images/back__COLOR_special-1.png);
+.header-navbar__userimg {
+  background-image: url(../../images/back__COLOR_special-1.svg);
   background-color: #313131;
   width: 26px;
   background-repeat: no-repeat;
@@ -63,10 +72,10 @@
   line-height: 16px;
   align-items: center;
 }
-.header__user {
+.header-navbar__user {
   display: flex;
 }
-.header__btn_user {
+.header-navbar__btn_user {
   align-self: center;
 }
 .header__btn_signin {
@@ -85,21 +94,19 @@
   display: none;
 }
 
-@media screen and (max-width: 1279px) and (min-width: 768px) {
-  .header__label,
+@media screen and (max-width: 1279px) and (min-width: 769px) {
+  /* .header__label,
   .header__checkbox,
-  .header__btn_main {
+  .header-navbar__btn_main {
     display: block;
+  } */
+  .header-wrapper {
+    padding: 0;
   }
-  .header__btn {
-    margin: 0;
-    font-size: 18px;
-    line-height: 22px;
-  }
-  .header__btn_film {
+  .header-navbar__btn_film {
     margin: 28px 0;
   }
-  .header__checkbox {
+  /* .header__checkbox {
     z-index: 10;
     opacity: 0;
     position: absolute;
@@ -107,8 +114,8 @@
     right: 0;
     width: 44px;
     height: 44px;
-  }
-  .header__label {
+  } */
+  /* .header__label {
     background-image: url(../../images/burger.svg);
     background-position: center;
     background-repeat: no-repeat;
@@ -118,25 +125,25 @@
     top: 18px;
     right: 0;
   }
-  .header__navbar {
+  .header-navbar {
     display: none;
-  }
-  .header__btn_savfilm {
+  } */
+  /* .header-navbar__btn_savfilm {
     margin-bottom: 621px;
-  }
-  .header__user {
+  } */
+  .header-navbar__user {
     display: flex;
     flex-direction: row;
     width: 100px;
     justify-content: space-between;
     align-items: center;
   }
-  .header__btn_user {
+  .header-navbar__btn_user {
     font-size: 14px;
     line-height: 16px;
   }
 
-  .header__checkbox:checked + .header__label {
+  /* .header__checkbox:checked + .header__label {
     background-image: url(../../images/closeburger.svg);
     background-position-x: 440px;
     background-position-y: 25px;
@@ -147,7 +154,7 @@
     transform: translateX(41px);
     top: 0;
   }
-  .header__checkbox:checked ~ .header__navbar {
+  .header__checkbox:checked ~ .header-navbar {
     display: block;
     position: absolute;
     display: flex;
@@ -158,9 +165,9 @@
     width: 340px;
   }
   .header__checkbox:checked,
-  .header__navbar:first-child {
+  .header-navbar:first-child {
     display: block;
-  }
+  } */
   .header__btn_signup,
   .header__btn_signin {
     font-size: 12px;
@@ -171,26 +178,26 @@
   }
 }
 
-@media screen and (max-width: 767px) and (min-width: 320px) {
+@media screen and (max-width: 768px) and (min-width: 320px) {
   .header__label,
   .header__checkbox,
-  .header__btn_main {
+  .header-navbar__btn_main {
     display: block;
   }
-  .header__btn {
+  .header-navbar__btn {
     margin: 0;
     font-size: 18px;
     line-height: 22px;
   }
-  .header__btn_film {
+  .header-navbar__btn_film {
     margin: 28px 0;
   }
   .header__checkbox {
     z-index: 10;
     opacity: 0;
-    position: absolute;
+    position: fixed;
     top: 18px;
-    right: 0;
+    right: 42px;
     width: 44px;
     height: 44px;
   }
@@ -204,20 +211,20 @@
     top: 18px;
     right: 0;
   }
-  .header__navbar {
+  .header-navbar {
     display: none;
   }
-  .header__btn_savfilm {
+  .header-navbar__btn_savfilm {
     margin-bottom: 444px;
   }
-  .header__user {
+  .header-navbar__user {
     display: flex;
     flex-direction: row;
     width: 100px;
     justify-content: space-between;
     align-items: center;
   }
-  .header__btn_user {
+  .header-navbar__btn_user {
     font-size: 14px;
     line-height: 16px;
   }
@@ -225,25 +232,26 @@
     width: 320px;
     height: 100vh;
     background-color: #202020;
-    background-position-x: 262px;
+    background-position-x: 240px;
     background-position-y: 25px;
     background-image: url(../../images/closeburger.svg);
     z-index: 1;
-    transform: translateX(18px);
+    transform: translateX(-1px);
     top: 0;
+    position: fixed;
   }
-  .header__checkbox:checked ~ .header__navbar {
+  .header__checkbox:checked ~ .header-navbar {
     display: block;
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: column;
     top: 159px;
-    right: -18px;
+    right: 0px;
     z-index: 2;
     width: 320px;
   }
   .header__checkbox:checked,
-  .header__navbar:first-child {
+  .header-navbar:first-child {
     display: block;
   }
   .header__btn_signup,
