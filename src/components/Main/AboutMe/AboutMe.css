@@ -1,0 +1,134 @@
+.aboutme {
+  width: 100%;
+  background-color: #202020;
+}
+.aboutme-wrapper {
+  width: 89%;
+  max-width: 1140px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.aboutme__title {
+  margin: 110px 0 23px 0;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+.aboutme__info {
+  position: relative;
+  width: 100%;
+  border-top: 1px solid #dadada;
+}
+.aboutme__img {
+  width: 270px;
+  height: 327px;
+  position: absolute;
+  right: 0;
+  top: 66px;
+  border-radius: 10px;
+}
+.aboutme__me {
+  width: 600px;
+  margin-bottom: 101px;
+}
+.aboutme__name {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin: 66px auto 18px;
+}
+.aboutme__grade {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  color: #ffffff;
+  mix-blend-mode: normal;
+  margin: 0 auto 26px;
+}
+.aboutme__text {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #ffffff;
+  mix-blend-mode: normal;
+  margin-bottom: 99px;
+}
+.aboutme__social {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+.aboutme__social:hover {
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 1279px) and (min-width: 768px) {
+  .aboutme__me {
+    width: 364px;
+  }
+  .aboutme__name {
+    font-size: 40px;
+    line-height: 40px;
+  }
+  .aboutme__img {
+    width: 255px;
+  }
+  .aboutme__grade {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .aboutme__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 767px) and (min-width: 320px) {
+  .aboutme-wrapper {
+    width: 292px;
+  }
+  .aboutme__me {
+    position: static;
+    display: flex;
+    flex-direction: column;
+  }
+  .aboutme__me {
+    width: 292px;
+    margin-bottom: 70px;
+  }
+  .aboutme__img {
+    position: static;
+    margin: 60px 11px 40px;
+  }
+  .aboutme__name {
+    margin: 0;
+    width: 100%;
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .aboutme__grade {
+    width: 100%;
+    margin: 20px 0;
+    font-size: 11px;
+    line-height: 16px;
+  }
+  .aboutme__text {
+    margin-bottom: 40px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
