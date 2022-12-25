@@ -10,11 +10,11 @@ import Header from '../Header/Header'
 
 
 
-function Main() {
+function Main({isLogged}) {
   return (
     <div>
       <Header
-        isLogged={false}
+        isLogged={isLogged}
         isMain={true}
       />
       <Promo/>

@@ -1,26 +1,81 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import logo from '../../images/logo.svg'
-function Login() {
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Api } from '../../utils/MainApi';
+import { useState } from 'react';
+import { useFormWithValidation } from '../../utils/Validation';
+function Login({ handleSetCurrentUser, handleLogIn }) {
+  const navigate = useNavigate();
+  const formValidation = useFormWithValidation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    formValidation.handleChange(e);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    formValidation.handleChange(e);
+  };
+
+  const handleSubmit = () => {
+    Api.signin(email, password)
+      .then((res) => {
+        if (res) {
+          handleSetCurrentUser(res.data);
+          handleLogIn();
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('userData', JSON.stringify(res.data));
+          navigate('/movies')
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <section className='login'>
-      <div className='login__header'>
-        <Link to='/' className='login__header-logo login__header-btn'></Link>
-        <h1 className='login__header-title'>Рады видеть!</h1>
+    <section className="login">
+      <div className="login__header">
+        <Link to="/" className="login__header-logo login__header-btn"></Link>
+        <h1 className="login__header-title">Рады видеть!</h1>
       </div>
-      <form className='login__form'>
-          <label className='login__form-label login__form-label_email'>Email</label>
-          <input className='login__form-input login__form-input_email' value={'test@email'} required></input>
-          <label className='login__form-label login__form-label_password'>Пароль</label>
-          <input className='login__form-input login__form-input_email' type='password' required></input>
-        </form>
-        <button className='login__btn login__btn_signup'>Войти</button>
-        <div className='login__signin'>
-          <p className='signin__text'>Ещё не зарегистрированы?</p>
-          <Link to='/signup' className='login__btn login__btn_signin'>Регистрация</Link>
-        </div>
+      <form className="login__form" onSubmit={() => handleSubmit()}>
+        <label className={`login__form-label login__form-label_email ${ formValidation.errors.email && 'login__form-label-error'}`}>Email</label>
+        <input
+          className="login__form-input login__form-input_email"
+          value={email}
+          onChange={handleEmailChange}
+          name="email"
+          required
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]*"
+        ></input>
+        <label className={`login__form-label login__form-label_password ${ formValidation.errors.password && 'login__form-label-error'}`}>Пароль</label>
+        <input
+          className="login__form-input login__form-input_email"
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+          name="password"
+          required
+        ></input>
+      </form>
+      <button
+        className={`login__btn login__btn_signup ${
+          !formValidation.isValid && `login__btn_signup_unactive`
+        }`}
+        type="submit"
+        disabled={!formValidation.isValid}
+        onClick={() => handleSubmit()}
+      >
+        Войти
+      </button>
+      <div className="login__signin">
+        <p className="signin__text">Ещё не зарегистрированы?</p>
+        <Link to="/signup" className="login__btn login__btn_signin">
+          Регистрация
+        </Link>
+      </div>
     </section>
-  )
+  );
 }
 
-export default Login
+export default Login;
