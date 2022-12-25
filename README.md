@@ -2,6 +2,8 @@
 
 ### Ссылка на файл макета - https://disk.yandex.ru/d/g_pex_7r6tqYOA
 
+### Ссылка на пулреквест - https://github.com/AndreySaveliev/movies-explorer-frontend/pull/2
+
 ## Сайт сделан на трех разрешениях 1280, 760, 320. Был сделан роутинг:
 
 #### - / - Лендинг
