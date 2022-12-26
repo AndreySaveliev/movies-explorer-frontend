@@ -4,6 +4,8 @@
 
 ### Ссылка на пулреквест - https://github.com/AndreySaveliev/movies-explorer-frontend/pull/2
 
+### Ссылка на сайт - https://cinemafinder.nomoredomains.club/
+
 ## Сайт сделан на трех разрешениях 1280, 760, 320. Был сделан роутинг:
 
 #### - / - Лендинг
