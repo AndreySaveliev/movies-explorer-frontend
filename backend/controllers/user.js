@@ -97,7 +97,7 @@ const login = (req, res, next) => {
           expiresIn: '7d',
         });
         res.cookie('Bearer', token, {
-          maxAge: 3600 * 60 * 24,
+          maxAge: 24 * 3600 * 7 * 1000,
           httpOnly: true,
           sameSite: 'None',
           secure: true,
