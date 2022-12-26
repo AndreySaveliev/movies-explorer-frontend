@@ -6,6 +6,10 @@
 
 ### Ссылка на сайт - https://cinemafinder.nomoredomains.club/
 
+### ССылка на репозиторий с фронтенд частью проекта - https://github.com/AndreySaveliev/movies-explorer-frontend
+-- level 2 - верстка
+-- level 3 - функциональная часть сайта
+
 ## Сайт сделан на трех разрешениях 1280, 760, 320. Был сделан роутинг:
 
 #### - / - Лендинг
