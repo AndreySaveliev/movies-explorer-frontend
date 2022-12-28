@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Api } from '../../utils/MainApi';
 import { useState } from 'react';
 import { useFormWithValidation } from '../../utils/Validation';
-function Login({ handleSetCurrentUser, handleLogIn }) {
+function Login({ handleSetCurrentUser, handleLogIn, setIsLoaded }) {
   const navigate = useNavigate();
   const formValidation = useFormWithValidation();
   const [email, setEmail] = useState('');
@@ -20,6 +20,7 @@ function Login({ handleSetCurrentUser, handleLogIn }) {
 
   const handleSubmit = () => {
     Api.signin(email, password)
+      .then(setIsLoaded(false))
       .then((res) => {
         if (res) {
           handleSetCurrentUser(res.data);
@@ -29,6 +30,7 @@ function Login({ handleSetCurrentUser, handleLogIn }) {
           navigate('/movies')
         }
       })
+      .then(setIsLoaded(true))
       .catch((err) => console.log(err));
   };
 

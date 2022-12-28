@@ -35,6 +35,7 @@ function MoviesCardList({ isSaved, shownMovies, handleSaveFilm, savMovies, handl
               title={movie.nameRU}
               duration={movie.duration}
               handleSaveFilm={handleSaveFilm}
+              handleUnsaveFiml={handleUnsaveFiml}
               img={`https://api.nomoreparties.co/${movie.image.url}`}
             />
           ))}

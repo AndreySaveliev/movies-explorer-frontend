@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { Api } from '../../utils/MainApi';
 import { movieapi } from '../../utils/MoviesApi';
-
+import Preloader from '../Preloader/Preloader'
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -20,6 +20,8 @@ function App() {
   const [shownMovies, setShownMovies] = useState([]);
   const [count, setCount] = useState(0);
   const [savMovies, setSavMovies] = useState([])
+  const [isLoaded, setIsLoaded] = useState(true)
+
   const navigate = useNavigate();
 
 
@@ -49,7 +51,9 @@ function App() {
     if (input === '') {
       setCount(3)
       Api.getUsersSavFilms()
+      .then(setIsLoaded(false))
       .then(res => setSavMovies(res.data))
+      .then(setIsLoaded(true))
     }
     if (checked) {
       return savMovies.filter(movie => movie.nameRU.includes(input) && movie.duration <= 40)
@@ -59,17 +63,22 @@ function App() {
 
   const handleSaveFilm = (movie) => {
     Api.like(movie)
+      .then(setIsLoaded(false))
       .then((res) => setSavMovies([...savMovies, res.data]))
+      .then(setIsLoaded(true))
+      .catch((err) => console.log(err))
   }
 
   const handleUnsaveFiml = (id) => {
     Api.unlike(id)
+      .then(setIsLoaded(false))
       .then(() => {
         const newSavMovies = savMovies.filter((movies) => movies._id !== id);
         setSavMovies(() => {
           return newSavMovies
-      });
+        })
       })
+      .then(setIsLoaded(true))
       .catch((err) => console.log(err))
   }
 
@@ -174,6 +183,7 @@ function App() {
   return (
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
+        {/* <Preloader isLoaded={isLoaded}/> */}
         <Routes>
           <Route
             exact
@@ -189,7 +199,7 @@ function App() {
             path="/movies"
             element={
               <ProtectedRoute isLogged={isLogged}>
-                <Movies searchMovie={searchMovie} handleSaveFilm={handleSaveFilm} savMovies={savMovies} shownMovies={shownMovies} showMore={showMore} searchByWord={searchByWord}/>
+                <Movies searchMovie={searchMovie} handleSaveFilm={handleSaveFilm} handleUnsaveFiml={handleUnsaveFiml} savMovies={savMovies} shownMovies={shownMovies} showMore={showMore} searchByWord={searchByWord}/>
               </ProtectedRoute>
             }
           />
@@ -217,7 +227,7 @@ function App() {
             exact
             path="/signin"
             element={
-              <Login handleSetCurrentUser={handleSetCurrentUser} handleLogIn={handleLogIn} />
+              <Login handleSetCurrentUser={handleSetCurrentUser} handleLogIn={handleLogIn} setIsLoaded={setIsLoaded}/>
             }
           />
           <Route exact path="*" element={<NotFoundPage />} />

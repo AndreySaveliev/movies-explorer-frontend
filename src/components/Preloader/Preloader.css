@@ -46,7 +46,14 @@
     width: 100%;
     height: 100%;
     z-index: 10;
-    padding: 20px;
+    position: absolute;
+    height: 50%;
+    width: 50%;
+    transform: translate(50%, 50%);
+}
+
+.preloader_hidden {
+    visibility: hidden;
 }
 
 .preloader__container {

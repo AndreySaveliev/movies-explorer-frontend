@@ -4,16 +4,32 @@ import { useState } from 'react';
 function MoviesCard({ isSaved, title, duration, img, handleSaveFilm, movie, handleUnsaveFiml, shownMovies, savMovies }) {
 
   const [isLiked, setIsLiked] = useState(false)
+  const [movieToUnlike, setMovieToUnlike] = useState('')
+
 
   const handleClick = (movie) => {
     if (isSaved) {
       handleUnsaveFiml(movie._id)
       setIsLiked(!isLiked)
     } else {
-      handleSaveFilm(movie)
-      setIsLiked(!isLiked)
+      if (isLiked) {
+        findMovInSavedMovies(movie)
+        setIsLiked(!isLiked)
+      } else {
+        handleSaveFilm(movie)
+        setIsLiked(!isLiked)
+      }
     }
   }
+
+  const findMovInSavedMovies = (movie) => {
+    savMovies.forEach((mov) => {
+      if (mov.description === movie.description) {
+        setMovieToUnlike(mov._id)
+      }
+    })
+  }
+
 
   useEffect(() => {
     if (!isSaved) {
@@ -25,7 +41,16 @@ function MoviesCard({ isSaved, title, duration, img, handleSaveFilm, movie, hand
         })
       }
     }
+
+    
   }, [isSaved, movie.nameRU, savMovies, shownMovies])
+
+
+  useEffect(() => {
+    if (movieToUnlike !== '') {
+      handleUnsaveFiml(movieToUnlike)
+    }
+  }, [movieToUnlike])
 
   return (
     <div className="moviecard">
