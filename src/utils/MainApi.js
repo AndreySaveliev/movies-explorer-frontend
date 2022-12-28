@@ -2,8 +2,8 @@ import Footer from "../components/Footer/Footer";
 
 class mainApi {
   constructor() {
-    // this.baseUrl = 'https://api.cinemafinder.nomoredomains.club';
-    this.baseUrl = 'http://localhost:5000';
+    this.baseUrl = 'https://api.cinemafinder.nomoredomains.club';
+    // this.baseUrl = 'http://localhost:5000';
   }
 
   signup(name, email, password) {
