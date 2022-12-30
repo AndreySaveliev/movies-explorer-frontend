@@ -48,7 +48,7 @@ function App() {
   }
 
   const searchByWordinSavFilms = (checked) => {
-    const input = localStorage.getItem('input')
+    const input = localStorage.getItem('savePageInput')
     if (input === '') {
       setCount(3)
       Api.getUsersSavFilms()
@@ -165,7 +165,7 @@ function App() {
   return (
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
-        {/* <Preloader isLoaded={isLoaded}/> */}
+        <Preloader isLoaded={isLoaded}/>
         <Routes>
           <Route
             exact

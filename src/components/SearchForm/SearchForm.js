@@ -1,19 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 function SearchForm({searchMovie, isSaved}) {
 
-  const [checked, setCheked] = useState(localStorage.getItem('switcher') === 'true')
+  const [checked, setCheked] = useState(localStorage.getItem('switcher') === true)
   const [input, setInput] = useState(localStorage.getItem('input'))
 
   const handheChangeInput = (e) => {
-    setInput(e.target.value)
-    localStorage.setItem('input', e.target.value)
+      setInput(e.target.value)
+    if (isSaved) {
+      localStorage.setItem('savePageInput', e.target.value)
+    } else {
+      localStorage.setItem('input', e.target.value)
+    }
   }
 
   const handeChangesSwitcher = (e) => {
     setCheked(e.target.checked)
-    localStorage.setItem('switcher', e.target.checked)
+    if (isSaved) {
+      localStorage.setItem('savePageSwitcher', e.target.checked)
+    } else {
+      localStorage.setItem('switcher', e.target.checked)
+    }
   }
+
+  useEffect(() => {
+    if (isSaved) {
+      setInput(localStorage.getItem('savePageInput'))
+      setCheked(JSON.parse(localStorage.getItem('savePageSwitcher')))
+    }
+  }, [isSaved])
 
   return (
     <section className="searchform">
