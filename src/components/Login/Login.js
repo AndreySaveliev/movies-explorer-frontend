@@ -19,8 +19,8 @@ function Login({ handleSetCurrentUser, handleLogIn, setIsLoaded }) {
   };
 
   const handleSubmit = () => {
+    setIsLoaded(false)
     Api.signin(email, password)
-      .then(setIsLoaded(false))
       .then((res) => {
         if (res) {
           handleSetCurrentUser(res.data);
@@ -28,11 +28,13 @@ function Login({ handleSetCurrentUser, handleLogIn, setIsLoaded }) {
           localStorage.setItem('isLogged', true)
           localStorage.setItem('token', res.token);
           localStorage.setItem('userData', JSON.stringify(res.data));
+          setIsLoaded(true)
           navigate('/movies')
         }
       })
-      .then(setIsLoaded(true))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsLoaded(true)
+        console.log(err)});
   };
 
   return (
