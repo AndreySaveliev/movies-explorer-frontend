@@ -17,10 +17,11 @@ function App() {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('userData')));
   const [isLogged, setIsLogged] = useState(localStorage.getItem('isLogged'));
   const [movies, setMovies] = useState([]);
-  const [shownMovies, setShownMovies] = useState([]);
-  const [count, setCount] = useState(0);
+  const [shownMovies, setShownMovies] = useState(JSON.parse(localStorage.getItem('shownMovies')));
+  const [count, setCount] = useState(JSON.parse(localStorage.getItem('count')));
   const [savMovies, setSavMovies] = useState([])
   const [isLoaded, setIsLoaded] = useState(true)
+  const [unvisiable, setUnvisiable] = useState(true)
 
   const navigate = useNavigate();
 
@@ -135,42 +136,10 @@ function App() {
   }, [isLogged, navigate])
 
   useEffect(() => {
-    let part;
-    if (movies.length !== 0 && window.innerWidth >= 1280) {
-      setCount(3);
-      part = movies.slice(0, 12);
-      setShownMovies(part);
-    }
-    if (movies.length !== 0 && window.innerWidth < 1280 && window.innerWidth >= 768) {
-      setCount(2);
-      part = movies.slice(0, 8);
-      setShownMovies(part);
-    }
-    if (movies.length !== 0 && window.innerWidth < 768 && window.innerWidth >= 320) {
-      setCount(2);
-      part = movies.slice(0, 5);
-      setShownMovies(part);
-    }
-    if (window.localStorage.getItem('movies')) {
-      const movies = JSON.parse(window.localStorage.getItem('movies'));
-      let count
-      if (window.localStorage.getItem('count')) {
-        count = JSON.parse(window.localStorage.getItem('count'))
-        if (movies.length !== 0 && window.innerWidth >= 1280) {
-          part = movies.slice(0, 12+count)
-        } else if (movies.length !== 0 && window.innerWidth < 1280 && window.innerWidth >= 768) {
-          part = movies.slice(0, 8+count)
-        } else (
-          part = movies.slice(0, 5+count)
-        )
-      }
-      setShownMovies(part)
-    }
-
     Api.getUsersSavFilms()
       .then(res => setSavMovies(res.data))
 
-  }, [movies, setShownMovies]);
+  }, [movies]);
 
   useEffect(() => {
     movieapi.searchFilm().then(res => {
@@ -179,6 +148,19 @@ function App() {
       window.localStorage.setItem('count', JSON.stringify(count))})
       .catch((err) => console.log(err))
   }, [count, setMovies])
+
+  useEffect(() => {
+    localStorage.setItem('shownMovies', JSON.stringify(shownMovies))
+    if (window.innerWidth >= 1280) {
+      setUnvisiable(shownMovies.length<12 || shownMovies.length === 100)
+    }
+    if (window.innerWidth < 1280 && window.innerWidth >= 768) {
+      setUnvisiable(shownMovies.length<8 || shownMovies.length === 100)
+    }
+    if (window.innerWidth < 768 && window.innerWidth >= 320) {
+      setUnvisiable(shownMovies.length<5 || shownMovies.length === 100)
+    }
+  }, [shownMovies])
 
   return (
     <div className="App">
@@ -199,7 +181,7 @@ function App() {
             path="/movies"
             element={
               <ProtectedRoute isLogged={isLogged}>
-                <Movies searchMovie={searchMovie} handleSaveFilm={handleSaveFilm} handleUnsaveFiml={handleUnsaveFiml} savMovies={savMovies} shownMovies={shownMovies} showMore={showMore} searchByWord={searchByWord}/>
+                <Movies searchMovie={searchMovie} handleSaveFilm={handleSaveFilm} handleUnsaveFiml={handleUnsaveFiml} unvisiable={unvisiable} savMovies={savMovies} shownMovies={shownMovies} showMore={showMore} searchByWord={searchByWord}/>
               </ProtectedRoute>
             }
           />
