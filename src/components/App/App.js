@@ -37,7 +37,6 @@ function App() {
   };
 
   const searchByWord = (checked, input) => {
-    console.log(input);
     if (input === null) {
       setCount(3);
       return movies.slice(0, 12);
@@ -74,8 +73,8 @@ function App() {
       .then(setIsLoaded(false))
       .then((res) => setSavMovies([...savMovies, res.data]))
       .then(setIsLoaded(true))
-      .catch((err) => console.log(err))
-  }
+      .catch((err) => console.log(err));
+  };
 
   const handleUnsaveFiml = (id) => {
     Api.unlike(id)
@@ -83,12 +82,12 @@ function App() {
       .then(() => {
         const newSavMovies = savMovies.filter((movies) => movies._id !== id);
         setSavMovies(() => {
-          return newSavMovies
-        })
+          return newSavMovies;
+        });
       })
       .then(setIsLoaded(true))
-      .catch((err) => console.log(err))
-  }
+      .catch((err) => console.log(err));
+  };
 
   const showMore = () => {
     let part;
@@ -107,17 +106,16 @@ function App() {
       part = movies.slice(0, 5 + count);
       setShownMovies(part);
     }
-    window.localStorage.setItem('count', JSON.stringify(count))
+    window.localStorage.setItem('count', JSON.stringify(count));
   };
-  
 
   const handleLogIn = () => {
     setIsLogged(true);
   };
 
   const handleLogOut = () => {
-    setIsLogged(false)
-  }
+    setIsLogged(false);
+  };
 
   const handleSetCurrentUser = (data) => {
     setCurrentUser(data);
@@ -126,69 +124,79 @@ function App() {
   const handleChangeUserData = (name, email) => {
     Api.changeUserData(name, email)
       .then((res) => setCurrentUser(res.data))
-      .then(res => console.log(res))
-      .catch((err) => console.log(err))
-  }
+      .then((res) => console.log(res))
+      .then(formValidation.resetForm())
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
-    if (!isLogged) {
-      if (window.localStorage.getItem('token')) {
-        const token = window.localStorage.getItem('token');
-        Api.checkMe(token)
-          .then((res) => setCurrentUser(res.data))
-          .then(navigate('/movies'))
-          .catch((err) => console.log(err));
-      }
+    if (window.localStorage.getItem('token')) {
+      const token = window.localStorage.getItem('token');
+      Api.checkMe(token)
+        .then((res) => {
+          setCurrentUser(res.data);
+          setIsLogged(true);
+        })
+        .catch((err) => console.log(err));
     }
-  }, [isLogged, navigate])
+  }, []);
 
   useEffect(() => {
-    Api.getUsersSavFilms()
-      .then(res => setSavMovies(res.data))
-
+    Api.getUsersSavFilms().then((res) => setSavMovies(res.data));
   }, [movies]);
 
   useEffect(() => {
-    movieapi.searchFilm().then(res => {
-      setMovies(res)
-      window.localStorage.setItem('movies', JSON.stringify(res))
-      window.localStorage.setItem('count', JSON.stringify(count))})
-      .catch((err) => console.log(err))
-  }, [count, setMovies])
+    movieapi
+      .searchFilm()
+      .then((res) => {
+        setMovies(res);
+        window.localStorage.setItem('movies', JSON.stringify(res));
+        window.localStorage.setItem('count', JSON.stringify(count));
+      })
+      .catch((err) => console.log(err));
+  }, [count, setMovies]);
 
   useEffect(() => {
-    localStorage.setItem('shownMovies', JSON.stringify(shownMovies))
+    localStorage.setItem('shownMovies', JSON.stringify(shownMovies));
     if (window.innerWidth >= 1280) {
-      setUnvisiable(shownMovies.length<12 || shownMovies.length === 100)
+      if (shownMovies !== null) {
+        console.log(123);
+        setUnvisiable(shownMovies?.length < 12 || shownMovies?.length === 100);
+      }
     }
     if (window.innerWidth < 1280 && window.innerWidth >= 768) {
-      setUnvisiable(shownMovies.length<8 || shownMovies.length === 100)
+      if (shownMovies !== null) {
+        setUnvisiable(shownMovies?.length < 8 || shownMovies?.length === 100);
+      }
     }
     if (window.innerWidth < 768 && window.innerWidth >= 320) {
-      setUnvisiable(shownMovies.length<5 || shownMovies.length === 100)
+      if (shownMovies !== null) {
+        setUnvisiable(shownMovies?.length < 5 || shownMovies?.length === 100);
+      }
     }
-  }, [shownMovies])
+  }, [shownMovies]);
 
   return (
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
         <Preloader isLoaded={isLoaded} />
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              // <ProtectedRoute isLogged={isLogged}>
-                <Main isLogged={isLogged} />
-              // </ProtectedRoute>
-            }
-          />
+          <Route exact path="/" element={<Main isLogged={isLogged} />} />
           <Route
             exact
             path="/movies"
             element={
               <ProtectedRoute isLogged={isLogged}>
-                <Movies searchMovie={searchMovie} handleSaveFilm={handleSaveFilm} handleUnsaveFiml={handleUnsaveFiml} unvisiable={unvisiable} savMovies={savMovies} shownMovies={shownMovies} showMore={showMore} searchByWord={searchByWord}/>
+                <Movies
+                  searchMovie={searchMovie}
+                  handleSaveFilm={handleSaveFilm}
+                  handleUnsaveFiml={handleUnsaveFiml}
+                  unvisiable={unvisiable}
+                  savMovies={savMovies}
+                  shownMovies={shownMovies}
+                  showMore={showMore}
+                  searchByWord={searchByWord}
+                />
               </ProtectedRoute>
             }
           />
@@ -197,7 +205,12 @@ function App() {
             path="/saved-movies"
             element={
               <ProtectedRoute isLogged={isLogged}>
-                <SavedMovies searchMovie={searchMovie} savMovies={savMovies} showMore={showMore} handleUnsaveFiml={handleUnsaveFiml}/>
+                <SavedMovies
+                  searchMovie={searchMovie}
+                  savMovies={savMovies}
+                  showMore={showMore}
+                  handleUnsaveFiml={handleUnsaveFiml}
+                />
               </ProtectedRoute>
             }
           />
@@ -206,7 +219,11 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute isLogged={isLogged}>
-                <Profile handleChangeUserData={handleChangeUserData} handleLogOut={handleLogOut}/>
+                <Profile
+                  handleChangeUserData={handleChangeUserData}
+                  handleLogOut={handleLogOut}
+                  formValidation={formValidation}
+                />
               </ProtectedRoute>
             }
           />
@@ -227,7 +244,11 @@ function App() {
             exact
             path="/signin"
             element={
-              <Login handleSetCurrentUser={handleSetCurrentUser} handleLogIn={handleLogIn} setIsLoaded={setIsLoaded}/>
+              <Login
+                handleSetCurrentUser={handleSetCurrentUser}
+                handleLogIn={handleLogIn}
+                setIsLoaded={setIsLoaded}
+              />
             }
           />
           <Route exact path="*" element={<NotFoundPage />} />
