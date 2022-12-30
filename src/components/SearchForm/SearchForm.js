@@ -3,7 +3,7 @@ import { useState } from 'react';
 function SearchForm({searchMovie, isSaved}) {
 
   const [checked, setCheked] = useState(localStorage.getItem('switcher') === true)
-  const [input, setInput] = useState(localStorage.getItem('input'))
+  const [input, setInput] = useState(localStorage.getItem('input') || '')
 
   const handheChangeInput = (e) => {
       setInput(e.target.value)
@@ -27,13 +27,16 @@ function SearchForm({searchMovie, isSaved}) {
     if (isSaved) {
       setInput(localStorage.getItem('savePageInput'))
       setCheked(JSON.parse(localStorage.getItem('savePageSwitcher')))
+    } else {
+      setInput(localStorage.getItem('input'))
+      setCheked(JSON.parse(localStorage.getItem('switcher')))
     }
   }, [isSaved])
 
   return (
     <section className="searchform">
-      <form className="searchform__form" noValidate onSubmit={(event) => searchMovie(event, isSaved, checked)}>
-        <input className="searchform__input" placeholder="Фильм" required value={input || ''} onChange={handheChangeInput}></input>
+      <form className="searchform__form" noValidate onSubmit={(event) => searchMovie(event, isSaved, checked, input)}>
+        <input className="searchform__input" placeholder="Фильм" required value={input} onChange={handheChangeInput}></input>
         <button className="searchform__btn" type='submit'></button>
         <div className="searchform__toggle">
           <input type="checkbox" className="searchform__checkbox" checked={checked} onChange={(e) => handeChangesSwitcher(e)}></input>

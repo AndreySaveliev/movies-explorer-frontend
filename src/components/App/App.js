@@ -19,50 +19,55 @@ function App() {
   const [isLogged, setIsLogged] = useState(localStorage.getItem('isLogged'));
   const [movies, setMovies] = useState([]);
   const [shownMovies, setShownMovies] = useState(JSON.parse(localStorage.getItem('shownMovies')));
-  const [count, setCount] = useState(JSON.parse(localStorage.getItem('count')));
-  const [savMovies, setSavMovies] = useState([])
-  const [isLoaded, setIsLoaded] = useState(true)
-  const [unvisiable, setUnvisiable] = useState(true)
+  const [count, setCount] = useState(3);
+  const [savMovies, setSavMovies] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [unvisiable, setUnvisiable] = useState(true);
   const formValidation = useFormWithValidation();
 
   const navigate = useNavigate();
 
-
-  const searchMovie = (event, isSaved, checked) => {
+  const searchMovie = (event, isSaved, checked, input) => {
     event.preventDefault();
     if (isSaved) {
-      setSavMovies(searchByWordinSavFilms(checked))
+      setSavMovies(searchByWordinSavFilms(checked, input));
     } else {
-      setShownMovies(searchByWord(checked))
+      setShownMovies(searchByWord(checked, input));
     }
-  }
-  
-  const searchByWord = (checked) => {
-    const input = localStorage.getItem('input')
-    if (input=== '') {
-      setCount(3)
-      return movies.slice(0, 12);
-    }
-    if (checked) {
-      return movies.filter(movie => movie.nameRU.includes(input) && movie.duration <= 40)
-    }
-    return movies.filter(movie => movie.nameRU.includes(input))
-  }
+  };
 
-  const searchByWordinSavFilms = (checked) => {
-    const input = localStorage.getItem('savePageInput')
-    if (input === '') {
-      setCount(3)
+  const searchByWord = (checked, input) => {
+    console.log(input);
+    if (input === null) {
+      setCount(3);
+      return movies.slice(0, 12);
+    } else if (checked) {
+      return movies.filter(
+        (movie) => movie.nameRU.toLowerCase().includes(input.toLowerCase()) && movie.duration <= 40
+      );
+    } else {
+      return movies.filter((movie) => movie.nameRU.toLowerCase().includes(input.toLowerCase()));
+    }
+  };
+
+  const searchByWordinSavFilms = (checked, input) => {
+    if (input === null) {
+      setCount(3);
+      setIsLoaded(false);
       Api.getUsersSavFilms()
-      .then(setIsLoaded(false))
-      .then(res => setSavMovies(res.data))
-      .then(setIsLoaded(true))
+        .then((res) => {
+          setSavMovies(res.data);
+          setIsLoaded(true);
+        })
+        .catch((err) => console.log(err));
+    } else if (checked) {
+      return savMovies.filter(
+        (movie) => movie.nameRU.toLowerCase().includes(input.toLowerCase()) && movie.duration <= 40
+      );
+    } else {
+      return savMovies.filter((movie) => movie.nameRU.toLowerCase().includes(input.toLowerCase()));
     }
-    if (checked) {
-      return savMovies.filter(movie => movie.nameRU.includes(input) && movie.duration <= 40)
-    }
-    return savMovies.filter(movie => movie.nameRU.includes(input))
-  }
+  };
 
   const handleSaveFilm = (movie) => {
     Api.like(movie)
