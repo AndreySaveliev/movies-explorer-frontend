@@ -16,7 +16,7 @@ import Preloader from '../Preloader/Preloader';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('userData')));
-  const [isLogged, setIsLogged] = useState(localStorage.getItem('isLogged'));
+  const [isLogged, setIsLogged] = useState(false);
   const [movies, setMovies] = useState([]);
   const [shownMovies, setShownMovies] = useState(JSON.parse(localStorage.getItem('shownMovies')));
   const [count, setCount] = useState(3);
