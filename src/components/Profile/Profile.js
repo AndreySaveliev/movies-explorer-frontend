@@ -25,8 +25,7 @@ function Profile({ handleChangeUserData,handleLogOut }) {
   const handleLogout = () => {
     Api.signout()
       .then((res) => {
-        localStorage.removeItem('userData');
-        localStorage.removeItem('token');
+        localStorage.clear()
         handleLogOut()
         navigate('/');
       })
