@@ -6,7 +6,6 @@ function MoviesCard({ isSaved, title, duration, img, handleSaveFilm, movie, hand
   const [isLiked, setIsLiked] = useState(false)
   const [movieToUnlike, setMovieToUnlike] = useState('')
 
-
   const handleClick = (movie) => {
     if (isSaved) {
       handleUnsaveFiml(movie._id)
@@ -30,7 +29,6 @@ function MoviesCard({ isSaved, title, duration, img, handleSaveFilm, movie, hand
     })
   }
 
-
   useEffect(() => {
     if (!isSaved) {
       if (shownMovies !== undefined && savMovies !== undefined) {
@@ -44,7 +42,6 @@ function MoviesCard({ isSaved, title, duration, img, handleSaveFilm, movie, hand
 
     
   }, [isSaved, movie.nameRU, savMovies, shownMovies])
-
 
   useEffect(() => {
     if (movieToUnlike !== '') {
