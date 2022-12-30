@@ -14,8 +14,8 @@ import { movieapi } from '../../utils/MoviesApi';
 import Preloader from '../Preloader/Preloader'
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({});
-  const [isLogged, setIsLogged] = useState(false);
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('userData')));
+  const [isLogged, setIsLogged] = useState(localStorage.getItem('isLogged'));
   const [movies, setMovies] = useState([]);
   const [shownMovies, setShownMovies] = useState([]);
   const [count, setCount] = useState(0);
@@ -122,19 +122,19 @@ function App() {
       .catch((err) => console.log(err))
   }
 
-
   useEffect(() => {
     if (!isLogged) {
       if (window.localStorage.getItem('token')) {
         const token = window.localStorage.getItem('token');
         Api.checkMe(token)
           .then((res) => setCurrentUser(res.data))
-          .then(setIsLogged(true))
           .then(navigate('/movies'))
           .catch((err) => console.log(err));
       }
     }
+  }, [isLogged, navigate])
 
+  useEffect(() => {
     let part;
     if (movies.length !== 0 && window.innerWidth >= 1280) {
       setCount(3);
@@ -170,7 +170,7 @@ function App() {
     Api.getUsersSavFilms()
       .then(res => setSavMovies(res.data))
 
-  }, [isLogged, setShownMovies, navigate]);
+  }, [movies, setShownMovies]);
 
   useEffect(() => {
     movieapi.searchFilm().then(res => {

@@ -25,6 +25,7 @@ function Login({ handleSetCurrentUser, handleLogIn, setIsLoaded }) {
         if (res) {
           handleSetCurrentUser(res.data);
           handleLogIn();
+          localStorage.setItem('isLogged', true)
           localStorage.setItem('token', res.token);
           localStorage.setItem('userData', JSON.stringify(res.data));
           navigate('/movies')
