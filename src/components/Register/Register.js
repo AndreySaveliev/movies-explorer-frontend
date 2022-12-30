@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Api } from '../../utils/MainApi';
 import { useFormWithValidation } from '../../utils/Validation';
 
-function Register() {
+function Register({handleLogIn, handleSetCurrentUser, setIsLoaded, isLogged}) {
   const navigate = useNavigate();
   const formValidation = useFormWithValidation();
   const [name, setName] = useState('');
@@ -24,11 +24,25 @@ function Register() {
   };
 
   const handleSubmit = () => {
+    setIsLoaded(false)
     Api.signup(name, email, password)
-      .then(Api.signin(email, password))
-      .then(navigate('/movies'))
+      .then(() => {
+        Api.signin(email, password)
+          .then((res) => handleSetCurrentUser(res.data))
+          .then(handleLogIn())
+          .then(setIsLoaded(true))
+          .catch((err) => console.log(err))
+      })
+      .then(setIsLoaded(true))
       .catch((err) => console.log(err))
   };
+
+  useEffect(() => {
+    if (isLogged) {
+      navigate('/movies')
+    }
+  }, [isLogged])
+
   return (
     <section className="register">
       <div className="register__header">

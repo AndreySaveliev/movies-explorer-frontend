@@ -206,7 +206,18 @@ function App() {
             }
           />
 
-          <Route exact path="/signup" element={<Register />} />
+          <Route
+            exact
+            path="/signup"
+            element={
+              <Register
+                handleLogIn={handleLogIn}
+                handleSetCurrentUser={handleSetCurrentUser}
+                setIsLoaded={setIsLoaded}
+                isLogged={isLogged}
+              />
+            }
+          />
           <Route
             exact
             path="/signin"
