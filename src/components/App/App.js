@@ -12,6 +12,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { Api } from '../../utils/MainApi';
 import { movieapi } from '../../utils/MoviesApi';
 import Preloader from '../Preloader/Preloader'
+import { useFormWithValidation } from '../../utils/Validation';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('userData')));
@@ -22,6 +23,7 @@ function App() {
   const [savMovies, setSavMovies] = useState([])
   const [isLoaded, setIsLoaded] = useState(true)
   const [unvisiable, setUnvisiable] = useState(true)
+  const formValidation = useFormWithValidation();
 
   const navigate = useNavigate();
 

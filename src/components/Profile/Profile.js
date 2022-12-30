@@ -1,16 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import { useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../context/Context';
 import { Api } from '../../utils/MainApi';
-import { useFormWithValidation } from '../../utils/Validation';
-function Profile({ handleChangeUserData,handleLogOut }) {
+function Profile({ handleChangeUserData,handleLogOut, formValidation}) {
   const navigate = useNavigate();
-  const formValidation = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
+  const [isValid, setIsValid] = useState(false)
+
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -32,6 +32,16 @@ function Profile({ handleChangeUserData,handleLogOut }) {
       .catch((err) => console.log(err));
   };
 
+  useEffect(() => {
+    if (name !== currentUser.name || email !== currentUser.email) {
+      if (formValidation.isValid) {
+        setIsValid(true)
+      }
+    } else {
+      setIsValid(false)
+    }
+  }, [name, email, currentUser.name, currentUser.email, formValidation.isValid])
+
   return (
     <section className="profile">
       <Header isLogged={true} />
@@ -46,6 +56,8 @@ function Profile({ handleChangeUserData,handleLogOut }) {
             pattern="[a-zA-Z\ ]*"
             onChange={handleNameChange}
             required
+            minLength={2}
+            maxLength={30}
           ></input>
           <input
             className="profile__input profile__input_email"
@@ -60,9 +72,9 @@ function Profile({ handleChangeUserData,handleLogOut }) {
           <label className="profile__input_label profile__input_label_email">Email</label>
         </form>
         <button
-          className={`profile__btn profile__button_edit ${!formValidation.isValid && 'profile__button_edit_unactive'}`}
+          className={`profile__btn profile__button_edit ${!isValid && 'profile__button_edit_unactive'}`}
           onClick={() => handleChangeUserData(name, email)}
-          disabled={!formValidation.isValid}
+          disabled={!isValid}
         >
           Редактировать
         </button>
