@@ -11,8 +11,8 @@ import { useEffect, useState } from 'react';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { Api } from '../../utils/MainApi';
 import { movieapi } from '../../utils/MoviesApi';
-import Preloader from '../Preloader/Preloader'
 import { useFormWithValidation } from '../../utils/Validation';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('userData')));
@@ -172,7 +172,7 @@ function App() {
   return (
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
-        <Preloader isLoaded={isLoaded}/>
+        <Preloader isLoaded={isLoaded} />
         <Routes>
           <Route
             exact
