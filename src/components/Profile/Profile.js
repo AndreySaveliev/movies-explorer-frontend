@@ -3,7 +3,7 @@ import Header from '../Header/Header';
 import { useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../context/Context';
 import { Api } from '../../utils/MainApi';
-function Profile({ handleChangeUserData,handleLogOut, formValidation}) {
+function Profile({ handleChangeUserData,handleLogOut, formValidation, setSavMovies, setShownMovies}) {
   const navigate = useNavigate();
   const currentUser = useContext(CurrentUserContext);
 
@@ -26,6 +26,8 @@ function Profile({ handleChangeUserData,handleLogOut, formValidation}) {
     Api.signout()
       .then((res) => {
         localStorage.clear()
+        setSavMovies([])
+        setShownMovies([])
         handleLogOut()
         navigate('/');
       })
