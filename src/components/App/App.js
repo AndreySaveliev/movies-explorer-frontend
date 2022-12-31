@@ -26,13 +26,16 @@ function App() {
   const formValidation = useFormWithValidation();
 
   const searchMovie = (event, isSaved, checked, input) => {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
     if (isSaved) {
       setSavMovies(searchByWordinSavFilms(checked, input));
     } else {
       setShownMovies(searchByWord(checked, input));
     }
   };
+
 
   const searchByWord = (checked, input) => {
     if (input === null) {
@@ -48,21 +51,31 @@ function App() {
   };
 
   const searchByWordinSavFilms = (checked, input) => {
+    console.log(checked)
     if (input === null) {
+      console.log(1)
       setCount(3);
       setIsLoaded(false);
       Api.getUsersSavFilms()
-        .then((res) => {
-          setSavMovies(res.data);
-          setIsLoaded(true);
-        })
-        .catch((err) => console.log(err));
+      .then((res) => {
+        setSavMovies(res.data);
+        setIsLoaded(true);
+      })
+      .catch((err) => console.log(err));
     } else if (checked) {
+      console.log(2)
       return savMovies.filter(
         (movie) => movie.nameRU.toLowerCase().includes(input.toLowerCase()) && movie.duration <= 40
       );
     } else {
-      return savMovies.filter((movie) => movie.nameRU.toLowerCase().includes(input.toLowerCase()));
+      console.log(3)
+      setIsLoaded(false);
+      Api.getUsersSavFilms()
+      .then((res) => {
+        setSavMovies(res.data);
+        setIsLoaded(true);
+      })
+      .catch((err) => console.log(err));
     }
   };
 
@@ -158,7 +171,6 @@ function App() {
     localStorage.setItem('shownMovies', JSON.stringify(shownMovies));
     if (window.innerWidth >= 1280) {
       if (shownMovies !== null) {
-        console.log(123);
         setUnvisiable(shownMovies?.length < 12 || shownMovies?.length === 100);
       }
     }
