@@ -31,11 +31,7 @@ const changeUserInfo = (req, res, next) => {
   const { name, email } = req.body;
   User.findById({ _id: req.user._id })
     .then((user) => {
-      if (user.name === name) {
-        throw new Error409('Передайте новое имя');
-      } else if (user.email === email) {
-        throw new Error409('Передайте новый email');
-      } else if (user === null) {
+      if (user === null) {
         throw new Error404('Указаный пользователь не найдей');
       }
       User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
