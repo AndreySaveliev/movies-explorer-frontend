@@ -1,6 +1,6 @@
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
@@ -24,8 +24,6 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(true);
   const [unvisiable, setUnvisiable] = useState(true);
   const formValidation = useFormWithValidation();
-
-  const navigate = useNavigate();
 
   const searchMovie = (event, isSaved, checked, input) => {
     event.preventDefault();
