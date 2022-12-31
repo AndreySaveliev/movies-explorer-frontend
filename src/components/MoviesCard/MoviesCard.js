@@ -34,9 +34,11 @@ function MoviesCard({ isSaved, title, duration, img, handleSaveFilm, movie, hand
       if (shownMovies !== undefined && savMovies !== undefined) {
         savMovies.map((m) => {
           if (movie.nameRU === m.nameRU) {
-            return setIsLiked(true)
+            setIsLiked(true)
           }
         })
+      } else {
+        setIsLiked(false)
       }
     }
 
