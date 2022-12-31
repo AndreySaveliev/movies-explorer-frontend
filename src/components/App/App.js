@@ -141,7 +141,7 @@ function App() {
 
   useEffect(() => {
     Api.getUsersSavFilms().then((res) => setSavMovies(res.data));
-  }, [movies]);
+  }, [isLogged]);
 
   useEffect(() => {
     movieapi
