@@ -221,6 +221,8 @@ function App() {
                   handleChangeUserData={handleChangeUserData}
                   handleLogOut={handleLogOut}
                   formValidation={formValidation}
+                  setShownMovies={setShownMovies}
+                  setSavMovies={setSavMovies}
                 />
               </ProtectedRoute>
             }
