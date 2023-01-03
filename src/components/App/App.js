@@ -205,49 +205,24 @@ function App() {
 
   useEffect(() => {
     Api.getUsersSavFilms().then((res) => {
-      setSavMovies(res.data)
-      localStorage.setItem('savMovies', JSON.stringify(res.data))
-      setFilteredSavMovies(res.data)
+      setSavMovies(res.data);
+      localStorage.setItem('savMovies', JSON.stringify(res.data));
+      setFilteredSavMovies(res.data);
     });
   }, [setIsLogged]);
 
   useEffect(() => {
-    movieapi
-      .searchFilm()
-      .then((res) => {
-        setMovies(res);
-        window.localStorage.setItem('movies', JSON.stringify(res));
-        window.localStorage.setItem('count', JSON.stringify(count));
-      })
-      .catch((err) => console.log(err));
-  }, [count, setMovies]);
+    setShownMovies(JSON.parse(localStorage.getItem('shownMovies')));
+    setFilteredSavMovies(JSON.parse(localStorage.getItem('filteredSavMovies')));
+  }, []);
 
   useEffect(() => {
-    if (isFiltered) {
-      setUnvisiable(true)
-    } else {
-      if (window.innerWidth >= 1280) {
-        if (shownMovies !== null) {
-          setUnvisiable(shownMovies?.length < 12 || shownMovies?.length === 100);
-        }
-      }
-      if (window.innerWidth < 1280 && window.innerWidth >= 768) {
-        if (shownMovies !== null) {
-          setUnvisiable(shownMovies?.length < 8 || shownMovies?.length === 100);
-        }
-      }
-      if (window.innerWidth < 768 && window.innerWidth >= 320) {
-        if (shownMovies !== null) {
-          setUnvisiable(shownMovies?.length < 5 || shownMovies?.length === 100);
-        }
-      }
+    if (shownMovies?.length === movies?.length) {
+      setUnvisiable(true);
+    } else if (shownMovies?.length === filteredMovies?.length) {
+      setUnvisiable(true);
     }
-  }, [isFiltered, shownMovies]);
-
-  useEffect(() => {
-    setShownMovies(movies.slice(0, 12))
-    localStorage.setItem('shownMovies', JSON.stringify(shownMovies));
-  }, [])
+  }, [filteredMovies, movies, shownMovies]);
 
   return (
     <div className="App">
