@@ -59,21 +59,23 @@ function App() {
     }
   };
 
-
   const searchByWord = (checked, input) => {
+    setCount(0);
     if (!input && !checked) {
-      setCount(3)
-      setIsFiltered(false)
-      return movies?.slice(0, 12)
+      setIsFiltered(false);
+      setUnvisiable(false);
+      return movies;
     } else if (!input && checked) {
-      setIsFiltered(true)
-      return movies.filter((m) => m.duration <= 40)
+      setIsFiltered(true);
+      return movies.filter((m) => m.duration <= 40);
     } else if (input && checked) {
-      setIsFiltered(true)
-      return movies.filter((m) => m.nameRU.toLowerCase().includes(input.toLowerCase()) && m.duration <= 40)
+      setIsFiltered(true);
+      return movies.filter(
+        (m) => m.nameRU.toLowerCase().includes(input.toLowerCase()) && m.duration <= 40
+      );
     } else if (input && !checked) {
-      setIsFiltered(true)
-      return movies.filter((m) => m.nameRU.toLowerCase().includes(input.toLowerCase()))
+      setIsFiltered(true);
+      return movies.filter((m) => m.nameRU.toLowerCase().includes(input.toLowerCase()));
     }
   };
 
