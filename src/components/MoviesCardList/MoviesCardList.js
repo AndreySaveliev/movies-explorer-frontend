@@ -9,9 +9,9 @@ function MoviesCardList({ isSaved, shownMovies, handleSaveFilm, savMovies, handl
         <div className="moviescardlist-wrapper">
           {filteredSavMovies?.map((movie) => (
             <MoviesCard
+            isSaved={true}
             shownMovies={shownMovies}
             filteredSavMovies={filteredSavMovies}
-            isSaved={true}
             movie={movie}
             savMovies={savMovies }
             key={movie._id}

@@ -15,7 +15,6 @@ import { useFormWithValidation } from '../../utils/Validation';
 import Preloader from '../Preloader/Preloader';
 import Popup from '../Popup/Popup';
 
-
 function App() {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('userData')));
   const [isLogged, setIsLogged] = useState(JSON.parse(localStorage.getItem('isLogged')));
@@ -147,7 +146,6 @@ function App() {
         setIsPopupClosed(false)
       });
   };
-
 
   useEffect(() => {
     if (window.localStorage.getItem('token')) {

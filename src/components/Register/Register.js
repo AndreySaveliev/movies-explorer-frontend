@@ -43,7 +43,6 @@ function Register({handleLogIn, handleSetCurrentUser, setIsLoaded, isLogged, set
       })
       .then(() => {
         setIsLoaded(true) 
-        console.log(isLogged)
       })
       .catch((err) => {
         console.log(err)
