@@ -7,27 +7,19 @@ function SearchForm({searchMovie, isSaved}) {
 
   const handheChangeInput = (e) => {
     setInput(e.target.value)
-    if (isSaved) {
-      localStorage.setItem('savePageInput', e.target.value)
-    } else {
-      localStorage.setItem('input', e.target.value)
-    }
+    if (!isSaved) {
+      localStorage.setItem('input', e.target.value) }
   }
 
   const handeChangesSwitcher = (event) => {
     setCheked(event.target.checked)
-    if (isSaved) {
-      localStorage.setItem('savePageSwitcher', event.target.checked)
-    } else {
+    if (!isSaved) {
       localStorage.setItem('switcher', event.target.checked)
     }
   }
 
   useEffect(() => {
-    if (isSaved) {
-      setInput(localStorage.getItem('savePageInput'))
-      setCheked(JSON.parse(localStorage.getItem('savePageSwitcher')))
-    } else {
+    if (!isSaved) {
       setInput(localStorage.getItem('input'))
       setCheked(JSON.parse(localStorage.getItem('switcher')))
     }
