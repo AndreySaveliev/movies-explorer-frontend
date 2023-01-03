@@ -3,14 +3,19 @@ import Header from '../Header/Header';
 import { useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../context/Context';
 import { Api } from '../../utils/MainApi';
-function Profile({ handleChangeUserData,handleLogOut, formValidation, setSavMovies, setShownMovies}) {
+function Profile({
+  handleChangeUserData,
+  handleLogOut,
+  formValidation,
+  setSavMovies,
+  setShownMovies
+}) {
   const navigate = useNavigate();
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
-  const [isValid, setIsValid] = useState(false)
-
+  const [isValid, setIsValid] = useState(false);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -25,9 +30,9 @@ function Profile({ handleChangeUserData,handleLogOut, formValidation, setSavMovi
   const handleLogout = () => {
     Api.signout()
       .then((res) => {
-        localStorage.clear()
-        setSavMovies([])
-        handleLogOut()
+        localStorage.clear();
+        setSavMovies([]);
+        handleLogOut();
         navigate('/');
       })
       .catch((err) => console.log(err));
@@ -36,12 +41,12 @@ function Profile({ handleChangeUserData,handleLogOut, formValidation, setSavMovi
   useEffect(() => {
     if (name !== currentUser.name || email !== currentUser.email) {
       if (formValidation.isValid) {
-        setIsValid(true)
+        setIsValid(true);
       }
     } else {
-      setIsValid(false)
+      setIsValid(false);
     }
-  }, [name, email, currentUser.name, currentUser.email, formValidation.isValid])
+  }, [name, email, currentUser.name, currentUser.email, formValidation.isValid]);
 
   return (
     <section className="profile">
@@ -52,7 +57,7 @@ function Profile({ handleChangeUserData,handleLogOut, formValidation, setSavMovi
           <input
             className="profile__input profile__input_name"
             placeholder="Имя"
-            name='name'
+            name="name"
             value={name}
             pattern="[a-zA-Z\ ]*"
             onChange={handleNameChange}
@@ -63,7 +68,7 @@ function Profile({ handleChangeUserData,handleLogOut, formValidation, setSavMovi
           <input
             className="profile__input profile__input_email"
             placeholder="E-mail"
-            name='email'
+            name="email"
             value={email}
             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]*"
             onChange={handleEmailChange}
@@ -73,7 +78,9 @@ function Profile({ handleChangeUserData,handleLogOut, formValidation, setSavMovi
           <label className="profile__input_label profile__input_label_email">Email</label>
         </form>
         <button
-          className={`profile__btn profile__button_edit ${!isValid && 'profile__button_edit_unactive'}`}
+          className={`profile__btn profile__button_edit ${
+            !isValid && 'profile__button_edit_unactive'
+          }`}
           onClick={() => handleChangeUserData(name, email)}
           disabled={!isValid}
         >

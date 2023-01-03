@@ -3,7 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Api } from '../../utils/MainApi';
 import { useState } from 'react';
 import { useFormWithValidation } from '../../utils/Validation';
-function Login({ handleSetCurrentUser, handleLogIn, setIsLoaded, setIsPopupClosed, setPopupMessage }) {
+function Login({
+  handleSetCurrentUser,
+  handleLogIn,
+  setIsLoaded,
+  setIsPopupClosed,
+  setPopupMessage
+}) {
   const navigate = useNavigate();
   const formValidation = useFormWithValidation();
   const [email, setEmail] = useState('');
@@ -19,24 +25,24 @@ function Login({ handleSetCurrentUser, handleLogIn, setIsLoaded, setIsPopupClose
   };
 
   const handleSubmit = () => {
-    setIsLoaded(false)
+    setIsLoaded(false);
     Api.signin(email, password)
       .then((res) => {
         if (res) {
           handleSetCurrentUser(res.data);
           handleLogIn();
-          localStorage.setItem('isLogged', true)
+          localStorage.setItem('isLogged', true);
           localStorage.setItem('token', res.token);
           localStorage.setItem('userData', JSON.stringify(res.data));
-          setIsLoaded(true)
-          navigate('/movies')
+          setIsLoaded(true);
+          navigate('/movies');
         }
       })
       .catch((err) => {
-        setIsLoaded(true)
-        console.log(err)
-        setPopupMessage('Не удалось войти')
-        setIsPopupClosed(false)
+        setIsLoaded(true);
+        console.log(err);
+        setPopupMessage('Не удалось войти');
+        setIsPopupClosed(false);
       });
   };
 
@@ -47,7 +53,13 @@ function Login({ handleSetCurrentUser, handleLogIn, setIsLoaded, setIsPopupClose
         <h1 className="login__header-title">Рады видеть!</h1>
       </div>
       <form className="login__form" onSubmit={() => handleSubmit()}>
-        <label className={`login__form-label login__form-label_email ${ formValidation.errors.email && 'login__form-label-error'}`}>Email</label>
+        <label
+          className={`login__form-label login__form-label_email ${
+            formValidation.errors.email && 'login__form-label-error'
+          }`}
+        >
+          Email
+        </label>
         <input
           className="login__form-input login__form-input_email"
           value={email}
@@ -56,7 +68,13 @@ function Login({ handleSetCurrentUser, handleLogIn, setIsLoaded, setIsPopupClose
           required
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]*"
         ></input>
-        <label className={`login__form-label login__form-label_password ${ formValidation.errors.password && 'login__form-label-error'}`}>Пароль</label>
+        <label
+          className={`login__form-label login__form-label_password ${
+            formValidation.errors.password && 'login__form-label-error'
+          }`}
+        >
+          Пароль
+        </label>
         <input
           className="login__form-input login__form-input_email"
           type="password"

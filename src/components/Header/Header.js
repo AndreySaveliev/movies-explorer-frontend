@@ -16,7 +16,9 @@ function Header({ isLogged, isMain }) {
               </Link>
               <Link
                 to="/movies"
-                className={` header-navbar__btn header-navbar__btn_film ${isLogged && 'header-navbar__btn_logged'}`}
+                className={` header-navbar__btn header-navbar__btn_film ${
+                  isLogged && 'header-navbar__btn_logged'
+                }`}
               >
                 Фильмы
               </Link>
