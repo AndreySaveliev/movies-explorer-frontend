@@ -97,7 +97,11 @@ function App() {
         });
       })
       .then(setIsLoaded(true))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+        setPopupMessage('Не удалось удалить фильм')
+        setIsPopupClosed(false)
+      });
   };
 
   const showMore = () => {
@@ -143,6 +147,7 @@ function App() {
         setIsPopupClosed(false)
       });
   };
+
 
   useEffect(() => {
     if (window.localStorage.getItem('token')) {
@@ -213,7 +218,7 @@ function App() {
             exact
             path="/movies"
             element={
-              <ProtectedRoute isLogged={isLogged}>
+              <ProtectedRoute isLogged={isLogged} currentUser={currentUser}>
                 <Movies
                   searchMovie={searchMovie}
                   handleSaveFilm={handleSaveFilm}
@@ -231,10 +236,11 @@ function App() {
             exact
             path="/saved-movies"
             element={
-              <ProtectedRoute isLogged={isLogged}>
+              <ProtectedRoute isLogged={isLogged} currentUser={currentUser}>
                 <SavedMovies
                   searchMovie={searchMovie}
                   savMovies={savMovies}
+                  filteredSavMovies={filteredSavMovies}
                   showMore={showMore}
                   handleUnsaveFiml={handleUnsaveFiml}
                 />
@@ -245,7 +251,7 @@ function App() {
             exact
             path="/profile"
             element={
-              <ProtectedRoute isLogged={isLogged}>
+              <ProtectedRoute isLogged={isLogged} currentUser={currentUser}>
                 <Profile
                   handleChangeUserData={handleChangeUserData}
                   handleLogOut={handleLogOut}
@@ -256,12 +262,13 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           <Route
             exact
             path="/signup"
             element={
               <Register
+                setPopupMessage={setPopupMessage}
+                setIsPopupClosed={setIsPopupClosed}
                 handleLogIn={handleLogIn}
                 handleSetCurrentUser={handleSetCurrentUser}
                 setIsLoaded={setIsLoaded}
@@ -274,6 +281,8 @@ function App() {
             path="/signin"
             element={
               <Login
+                 setPopupMessage={setPopupMessage}
+                setIsPopupClosed={setIsPopupClosed}
                 handleSetCurrentUser={handleSetCurrentUser}
                 handleLogIn={handleLogIn}
                 setIsLoaded={setIsLoaded}
