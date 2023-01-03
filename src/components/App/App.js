@@ -37,11 +37,25 @@ function App() {
     if (event) {
       event.preventDefault();
     }
+    if (movies !== undefined) {
+      movieapi
+        .searchFilm()
+        .then(setIsLoaded(false))
+        .then((res) => {
+          setMovies(res);
+          window.localStorage.setItem('movies', JSON.stringify(res));
+          window.localStorage.setItem('count', JSON.stringify(count));
+          setIsLoaded(true);
+        })
+        .catch((err) => console.log(err));
+    }
     if (isSaved) {
       setFilteredSavMovies(searchByWordinSavFilms(checked, input));
     } else {
-      setShownMovies(searchByWord(checked, input));
-      localStorage.setItem('shownMovies', JSON.stringify(searchByWord(checked, input)))
+      setShownMovies(searchByWord(checked, input).slice(0, 12));
+      setFilteredMovies(searchByWord(checked, input));
+      localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+      localStorage.setItem('shownMovies', JSON.stringify(searchByWord(checked, input)));
     }
   };
 
