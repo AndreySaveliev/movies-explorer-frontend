@@ -180,11 +180,14 @@ function App() {
     Api.changeUserData(name, email)
       .then((res) => setCurrentUser(res.data))
       .then(formValidation.resetForm())
-      .then(setIsPopupClosed(false))
+      .then(() => {
+        setIsPopupClosed(false);
+        setPopupMessage('Данные успешно изменены');
+      })
       .catch((err) => {
-        console.log(err)
-        setPopupMessage('Не удалось изменть почту или имя')
-        setIsPopupClosed(false)
+        console.log(err);
+        setPopupMessage('Не удалось изменть почту или имя');
+        setIsPopupClosed(false);
       });
   };
 
