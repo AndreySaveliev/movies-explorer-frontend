@@ -218,6 +218,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    setUnvisiable(false);
     if (shownMovies?.length === movies?.length) {
       setUnvisiable(true);
     } else if (shownMovies?.length === filteredMovies?.length) {
