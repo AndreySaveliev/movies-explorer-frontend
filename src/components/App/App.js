@@ -96,14 +96,17 @@ function App() {
 
   const handleSaveFilm = (movie) => {
     Api.like(movie)
-      
       .then(setIsLoaded(false))
-      .then((res) => setSavMovies([...savMovies, res.data]))
+      .then((res) => {
+        setSavMovies([...savMovies, res.data]);
+        setPopupMessage('Фильм сохранен');
+        setIsPopupClosed(false);
+      })
       .then(setIsLoaded(true))
       .catch((err) => {
-        console.log(err)
-        setPopupMessage('Не удалось сохранить фильм')
-        setIsPopupClosed(false)
+        console.log(err);
+        setPopupMessage('Не удалось сохранить фильм');
+        setIsPopupClosed(false);
       });
   };
 
@@ -111,16 +114,19 @@ function App() {
     Api.unlike(id)
       .then(setIsLoaded(false))
       .then(() => {
-        const newSavMovies = filteredSavMovies.filter((movies) => movies._id !== id);
+        const newSavMovies = savMovies.filter((movies) => movies._id !== id);
         setFilteredSavMovies(() => {
+          return newSavMovies;
+        });
+        setSavMovies(() => {
           return newSavMovies;
         });
       })
       .then(setIsLoaded(true))
       .catch((err) => {
-        console.log(err)
-        setPopupMessage('Не удалось удалить фильм')
-        setIsPopupClosed(false)
+        console.log(err);
+        setPopupMessage('Не удалось удалить фильм');
+        setIsPopupClosed(false);
       });
   };
 
