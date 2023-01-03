@@ -228,7 +228,11 @@ function App() {
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
         <Preloader isLoaded={isLoaded} />
-        <Popup isPopupClosed={isPopupClosed} setIsPopupClosed={setIsPopupClosed} popupMessage={popupMessage}/>
+        <Popup
+          isPopupClosed={isPopupClosed}
+          setIsPopupClosed={setIsPopupClosed}
+          popupMessage={popupMessage}
+        />
         <Routes>
           <Route exact path="/" element={<Main isLogged={isLogged} />} />
           <Route
@@ -298,7 +302,7 @@ function App() {
             path="/signin"
             element={
               <Login
-                 setPopupMessage={setPopupMessage}
+                setPopupMessage={setPopupMessage}
                 setIsPopupClosed={setIsPopupClosed}
                 handleSetCurrentUser={handleSetCurrentUser}
                 handleLogIn={handleLogIn}
