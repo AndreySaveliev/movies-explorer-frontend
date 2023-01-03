@@ -107,20 +107,14 @@ function App() {
   };
 
   const showMore = () => {
-    let part;
     if (movies.length !== 0 && window.innerWidth >= 1280) {
       setCount(count + 3);
-      part = movies.slice(0, 12 + count);
-      setShownMovies(part);
     }
     if (movies.length !== 0 && window.innerWidth < 1280 && window.innerWidth >= 768) {
       setCount(count + 2);
-      part = movies.slice(0, 8 + count);
-      setShownMovies(part);
     }
     if (movies.length !== 0 && window.innerWidth < 768 && window.innerWidth >= 320) {
       setCount(count + 2);
-      part = movies.slice(0, 5 + count);
       setShownMovies(part);
     }
     window.localStorage.setItem('count', JSON.stringify(count));
