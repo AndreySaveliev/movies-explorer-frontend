@@ -42,44 +42,32 @@ function App() {
 
 
   const searchByWord = (checked, input) => {
-    if (input === null) {
-      setCount(3);
-      return movies.slice(0, 12);
-    } else if (checked) {
-      return movies.filter(
-        (movie) => movie.nameRU.toLowerCase().includes(input.toLowerCase()) && movie.duration <= 40
-      );
-    } else {
-      return movies.filter((movie) => movie.nameRU.toLowerCase().includes(input.toLowerCase()));
+    if (!input && !checked) {
+      setCount(3)
+      setIsFiltered(false)
+      return movies?.slice(0, 12)
+    } else if (!input && checked) {
+      setIsFiltered(true)
+      return movies.filter((m) => m.duration <= 40)
+    } else if (input && checked) {
+      setIsFiltered(true)
+      return movies.filter((m) => m.nameRU.toLowerCase().includes(input.toLowerCase()) && m.duration <= 40)
+    } else if (input && !checked) {
+      setIsFiltered(true)
+      return movies.filter((m) => m.nameRU.toLowerCase().includes(input.toLowerCase()))
     }
   };
 
   const searchByWordinSavFilms = (checked, input) => {
-    console.log(checked)
-    if (input === null) {
-      console.log(1)
-      setCount(3);
-      setIsLoaded(false);
-      Api.getUsersSavFilms()
-      .then((res) => {
-        setSavMovies(res.data);
-        setIsLoaded(true);
-      })
-      .catch((err) => console.log(err));
-    } else if (checked) {
-      console.log(2)
-      return savMovies.filter(
-        (movie) => movie.nameRU.toLowerCase().includes(input.toLowerCase()) && movie.duration <= 40
-      );
-    } else {
-      console.log(3)
-      setIsLoaded(false);
-      Api.getUsersSavFilms()
-      .then((res) => {
-        setSavMovies(res.data);
-        setIsLoaded(true);
-      })
-      .catch((err) => console.log(err));
+    if (!input && !checked) {
+      setCount(3)
+      return savMovies
+    } else if (!input && checked) {
+      return savMovies.filter((m) => m.duration <= 40)
+    } else if (input && checked) {
+      return savMovies.filter((m) => m.nameRU.toLowerCase().includes(input.toLowerCase()) && m.duration <= 40)
+    } else if (input && !checked) {
+      return savMovies.filter((m) => m.nameRU.toLowerCase().includes(input.toLowerCase()))
     }
   };
 
