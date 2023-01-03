@@ -26,6 +26,7 @@ function Profile({ handleChangeUserData,handleLogOut, formValidation, setSavMovi
     Api.signout()
       .then((res) => {
         localStorage.clear()
+        setSavMovies([])
         handleLogOut()
         navigate('/');
       })
