@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ isSaved, shownMovies, handleSaveFilm, savMovies, handleUnsaveFiml }) {
-
-  
+function MoviesCardList({ isSaved, shownMovies, handleSaveFilm, savMovies, handleUnsaveFiml, filteredSavMovies}) {
 
   return (
     <section className="moviescardlist">
       {isSaved ? (
         <div className="moviescardlist-wrapper">
-          {savMovies?.map((movie) => (
+          {filteredSavMovies?.map((movie) => (
             <MoviesCard
             shownMovies={shownMovies}
-            savMovies={savMovies}
+            filteredSavMovies={filteredSavMovies}
             isSaved={true}
             movie={movie}
+            savMovies={savMovies }
             key={movie._id}
             title={movie.nameRU}
             duration={movie.duration}
@@ -29,8 +28,9 @@ function MoviesCardList({ isSaved, shownMovies, handleSaveFilm, savMovies, handl
             <MoviesCard
               isSaved={false}
               shownMovies={shownMovies}
-              savMovies={savMovies}
+              filteredSavMovies={filteredSavMovies}
               movie={movie}
+              savMovies={savMovies }
               key={movie.id}
               title={movie.nameRU}
               duration={movie.duration}

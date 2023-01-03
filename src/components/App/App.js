@@ -18,15 +18,17 @@ import Popup from '../Popup/Popup';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('userData')));
-  const [movies, setMovies] = useState([]);
   const [isLogged, setIsLogged] = useState(JSON.parse(localStorage.getItem('isLogged')));
+  const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')));
   const [shownMovies, setShownMovies] = useState(JSON.parse(localStorage.getItem('shownMovies')));
   const [count, setCount] = useState(3);
   const [savMovies, setSavMovies] = useState([]);
+  const [filteredSavMovies, setFilteredSavMovies] = useState([])
   const [isLoaded, setIsLoaded] = useState(true);
   const [unvisiable, setUnvisiable] = useState(true);
   const formValidation = useFormWithValidation();
   const [isPopupClosed, setIsPopupClosed] = useState(true);
+  const [isFiltered, setIsFiltered] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
 
   const searchMovie = (event, isSaved, checked, input) => {
@@ -34,9 +36,10 @@ function App() {
       event.preventDefault();
     }
     if (isSaved) {
-      setSavMovies(searchByWordinSavFilms(checked, input));
+      setFilteredSavMovies(searchByWordinSavFilms(checked, input));
     } else {
       setShownMovies(searchByWord(checked, input));
+      localStorage.setItem('shownMovies', JSON.stringify(searchByWord(checked, input)))
     }
   };
 
@@ -88,8 +91,8 @@ function App() {
     Api.unlike(id)
       .then(setIsLoaded(false))
       .then(() => {
-        const newSavMovies = savMovies.filter((movies) => movies._id !== id);
-        setSavMovies(() => {
+        const newSavMovies = filteredSavMovies.filter((movies) => movies._id !== id);
+        setFilteredSavMovies(() => {
           return newSavMovies;
         });
       })
@@ -154,8 +157,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    Api.getUsersSavFilms().then((res) => setSavMovies(res.data));
-  }, [isLogged]);
+    Api.getUsersSavFilms().then((res) => {
+      setSavMovies(res.data)
+      localStorage.setItem('savMovies', JSON.stringify(res.data))
+      setFilteredSavMovies(res.data)
+    });
+  }, [setIsLogged]);
 
   useEffect(() => {
     movieapi
@@ -169,23 +176,31 @@ function App() {
   }, [count, setMovies]);
 
   useEffect(() => {
+    if (isFiltered) {
+      setUnvisiable(true)
+    } else {
+      if (window.innerWidth >= 1280) {
+        if (shownMovies !== null) {
+          setUnvisiable(shownMovies?.length < 12 || shownMovies?.length === 100);
+        }
+      }
+      if (window.innerWidth < 1280 && window.innerWidth >= 768) {
+        if (shownMovies !== null) {
+          setUnvisiable(shownMovies?.length < 8 || shownMovies?.length === 100);
+        }
+      }
+      if (window.innerWidth < 768 && window.innerWidth >= 320) {
+        if (shownMovies !== null) {
+          setUnvisiable(shownMovies?.length < 5 || shownMovies?.length === 100);
+        }
+      }
+    }
+  }, [isFiltered, shownMovies]);
+
+  useEffect(() => {
+    setShownMovies(movies.slice(0, 12))
     localStorage.setItem('shownMovies', JSON.stringify(shownMovies));
-    if (window.innerWidth >= 1280) {
-      if (shownMovies !== null) {
-        setUnvisiable(shownMovies?.length < 12 || shownMovies?.length === 100);
-      }
-    }
-    if (window.innerWidth < 1280 && window.innerWidth >= 768) {
-      if (shownMovies !== null) {
-        setUnvisiable(shownMovies?.length < 8 || shownMovies?.length === 100);
-      }
-    }
-    if (window.innerWidth < 768 && window.innerWidth >= 320) {
-      if (shownMovies !== null) {
-        setUnvisiable(shownMovies?.length < 5 || shownMovies?.length === 100);
-      }
-    }
-  }, [shownMovies]);
+  }, [])
 
   return (
     <div className="App">

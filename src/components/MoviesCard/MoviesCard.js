@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 
-function MoviesCard({ isSaved, title, duration, img, handleSaveFilm, movie, handleUnsaveFiml, shownMovies, savMovies }) {
+function MoviesCard({ isSaved, title, duration, img, handleSaveFilm, movie, handleUnsaveFiml, shownMovies, filteredSavMovies, savMovies }) {
 
   const [isLiked, setIsLiked] = useState(false)
   const [movieToUnlike, setMovieToUnlike] = useState('')
@@ -43,7 +43,7 @@ function MoviesCard({ isSaved, title, duration, img, handleSaveFilm, movie, hand
     }
 
     
-  }, [isSaved, movie.nameRU, savMovies, shownMovies])
+  }, [isSaved, movie.nameRU, filteredSavMovies, shownMovies])
 
   useEffect(() => {
     if (movieToUnlike !== '') {
