@@ -1,0 +1,49 @@
+.popup {
+  width: 350px;
+  position: absolute;
+  background-color: #272727;
+  transform: translate(41.5vw, 45vh);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-y: 25%;
+  background-position-x: 50%;
+  background-size: 25%;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+.popup__hidden {
+  visibility: hidden;
+}
+
+.popup__text {
+  width: 270px;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+  color: #fff;
+  margin: 0 auto; 
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.popup__button {
+  background-image: url(../../images/times-svgrepo-com.svg);
+  border: none;
+  width: 25px;
+  height: 25px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.popup__button:hover {
+  opacity: 0.5;
+}

@@ -13,6 +13,8 @@ import { Api } from '../../utils/MainApi';
 import { movieapi } from '../../utils/MoviesApi';
 import { useFormWithValidation } from '../../utils/Validation';
 import Preloader from '../Preloader/Preloader';
+import Popup from '../Popup/Popup';
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('userData')));
@@ -24,6 +26,8 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(true);
   const [unvisiable, setUnvisiable] = useState(true);
   const formValidation = useFormWithValidation();
+  const [isPopupClosed, setIsPopupClosed] = useState(true);
+  const [popupMessage, setPopupMessage] = useState('');
 
   const searchMovie = (event, isSaved, checked, input) => {
     if (event) {
@@ -81,10 +85,15 @@ function App() {
 
   const handleSaveFilm = (movie) => {
     Api.like(movie)
+      
       .then(setIsLoaded(false))
       .then((res) => setSavMovies([...savMovies, res.data]))
       .then(setIsLoaded(true))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err)
+        setPopupMessage('Не удалось сохранить фильм')
+        setIsPopupClosed(false)
+      });
   };
 
   const handleUnsaveFiml = (id) => {
@@ -135,9 +144,13 @@ function App() {
   const handleChangeUserData = (name, email) => {
     Api.changeUserData(name, email)
       .then((res) => setCurrentUser(res.data))
-      .then((res) => console.log(res))
       .then(formValidation.resetForm())
-      .catch((err) => console.log(err));
+      .then(setIsPopupClosed(false))
+      .catch((err) => {
+        console.log(err)
+        setPopupMessage('Не удалось изменть почту или имя')
+        setIsPopupClosed(false)
+      });
   };
 
   useEffect(() => {
@@ -190,6 +203,7 @@ function App() {
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
         <Preloader isLoaded={isLoaded} />
+        <Popup isPopupClosed={isPopupClosed} setIsPopupClosed={setIsPopupClosed} popupMessage={popupMessage}/>
         <Routes>
           <Route exact path="/" element={<Main isLogged={isLogged} />} />
           <Route

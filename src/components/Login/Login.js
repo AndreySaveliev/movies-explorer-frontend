@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Api } from '../../utils/MainApi';
 import { useState } from 'react';
 import { useFormWithValidation } from '../../utils/Validation';
-function Login({ handleSetCurrentUser, handleLogIn, setIsLoaded }) {
+function Login({ handleSetCurrentUser, handleLogIn, setIsLoaded, setIsPopupClosed, setPopupMessage }) {
   const navigate = useNavigate();
   const formValidation = useFormWithValidation();
   const [email, setEmail] = useState('');
@@ -34,7 +34,10 @@ function Login({ handleSetCurrentUser, handleLogIn, setIsLoaded }) {
       })
       .catch((err) => {
         setIsLoaded(true)
-        console.log(err)});
+        console.log(err)
+        setPopupMessage('Не удалось войти')
+        setIsPopupClosed(false)
+      });
   };
 
   return (

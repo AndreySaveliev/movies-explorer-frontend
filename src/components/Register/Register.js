@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Api } from '../../utils/MainApi';
 import { useFormWithValidation } from '../../utils/Validation';
 
-function Register({handleLogIn, handleSetCurrentUser, setIsLoaded, isLogged}) {
+function Register({handleLogIn, handleSetCurrentUser, setIsLoaded, isLogged, setIsPopupClosed, setPopupMessage}) {
   const navigate = useNavigate();
   const formValidation = useFormWithValidation();
   const [name, setName] = useState('');
@@ -28,20 +28,30 @@ function Register({handleLogIn, handleSetCurrentUser, setIsLoaded, isLogged}) {
     Api.signup(name, email, password)
       .then(() => {
         Api.signin(email, password)
-          .then((res) => handleSetCurrentUser(res.data))
-          .then(handleLogIn())
-          .then(setIsLoaded(true))
-          .catch((err) => console.log(err))
+          .then((res) => {
+            handleSetCurrentUser(res.data)
+            handleLogIn()
+            localStorage.setItem('isLogged', true)
+            localStorage.setItem('token', res.token);
+            localStorage.setItem('userData', JSON.stringify(res.data));
+          })
+          .catch((err) => {
+            console.log(err)
+            setPopupMessage('Не удалось войти')
+            setIsPopupClosed(false)
+          })
       })
-      .then(setIsLoaded(true))
-      .catch((err) => console.log(err))
-  };
+      .then(() => {
+        setIsLoaded(true) 
+        console.log(isLogged)
+      })
+      .catch((err) => {
+        console.log(err)
+        setPopupMessage('Не удалось зареистрироваться')
+        setIsPopupClosed(false)
+      })
 
-  useEffect(() => {
-    if (isLogged) {
-      navigate('/movies')
-    }
-  }, [isLogged])
+  };
 
   return (
     <section className="register">

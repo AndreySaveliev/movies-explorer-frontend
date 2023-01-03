@@ -13,10 +13,10 @@ function MoviesCard({ isSaved, title, duration, img, handleSaveFilm, movie, hand
     } else {
       if (isLiked) {
         findMovInSavedMovies(movie)
-        setIsLiked(!isLiked)
+          .then(setIsLiked(!isLiked))
       } else {
         handleSaveFilm(movie)
-        setIsLiked(!isLiked)
+          .then(setIsLiked(!isLiked))
       }
     }
   }
