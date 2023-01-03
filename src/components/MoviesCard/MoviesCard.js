@@ -13,10 +13,10 @@ function MoviesCard({ isSaved, title, duration, img, handleSaveFilm, movie, hand
     } else {
       if (isLiked) {
         findMovInSavedMovies(movie)
-          .then(setIsLiked(!isLiked))
+        setIsLiked(!isLiked)
       } else {
         handleSaveFilm(movie)
-          .then(setIsLiked(!isLiked))
+        setIsLiked(!isLiked)
       }
     }
   }
@@ -43,7 +43,7 @@ function MoviesCard({ isSaved, title, duration, img, handleSaveFilm, movie, hand
     }
 
     
-  }, [isSaved, movie.nameRU, filteredSavMovies, shownMovies])
+  }, [isSaved, movie.nameRU, filteredSavMovies, shownMovies, savMovies])
 
   useEffect(() => {
     if (movieToUnlike !== '') {
