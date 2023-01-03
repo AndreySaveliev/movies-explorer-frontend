@@ -209,7 +209,7 @@ function App() {
       localStorage.setItem('savMovies', JSON.stringify(res.data));
       setFilteredSavMovies(res.data);
     });
-  }, [setIsLogged]);
+  }, [isLogged]);
 
   useEffect(() => {
     setShownMovies(JSON.parse(localStorage.getItem('shownMovies')));
