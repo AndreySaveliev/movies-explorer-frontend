@@ -1,5 +1,3 @@
-import Footer from "../components/Footer/Footer";
-
 class mainApi {
   constructor() {
     this.baseUrl = 'https://api.cinemafinder.nomoredomains.club';
@@ -101,9 +99,9 @@ class mainApi {
     return fetch(`${this.baseUrl}/movies`, {
       method: 'GET',
       credentials: 'include',
-      // headers: {
-      //   'Authorization': `Bearer ${token}`
-      // }
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     })
     .then(this._checkResponse)
   }
