@@ -21,8 +21,12 @@ function App() {
   );
   const [isLogged, setIsLogged] = useState(JSON.parse(localStorage.getItem('isLogged')) || false);
   const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
-  const [shownMovies, setShownMovies] = useState([]);
-  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [shownMovies, setShownMovies] = useState(
+    JSON.parse(localStorage.getItem('shownMovies')) || []
+);
+  const [filteredMovies, setFilteredMovies] = useState(
+    JSON.parse(localStorage.getItem('filteredMovies')) || []
+  );
   const [count, setCount] = useState(3);
   const [savMovies, setSavMovies] = useState([]);
   const [filteredSavMovies, setFilteredSavMovies] = useState([]);
@@ -30,10 +34,13 @@ function App() {
   const [unvisiable, setUnvisiable] = useState(true);
   const formValidation = useFormWithValidation();
   const [isPopupClosed, setIsPopupClosed] = useState(true);
-  const [isFiltered, setIsFiltered] = useState(false);
+  const [isFiltered, setIsFiltered] = useState(
+    JSON.parse(localStorage.getItem('isFiltered')) || false
+  );
   const [popupMessage, setPopupMessage] = useState('');
 
   const searchMovie = (event, isSaved, checked, input) => {
+    console.log(event, isSaved, checked, input )
     if (event) {
       event.preventDefault();
     }
@@ -53,10 +60,11 @@ function App() {
       setFilteredSavMovies(searchByWordinSavFilms(checked, input));
     } else {
       setShownMovies(searchByWord(checked, input).slice(0, 12));
+      console.log(searchByWord(checked, input).slice(0, 12))
       setFilteredMovies(searchByWord(checked, input));
-      localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-      localStorage.setItem('shownMovies', JSON.stringify(searchByWord(checked, input)));
     }
+    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+    localStorage.setItem('shownMovies', JSON.stringify(shownMovies));
   };
 
   const searchByWord = (checked, input) => {
@@ -141,7 +149,7 @@ function App() {
       setCount(count + 2);
     }
   };
- 
+
   const handleLogIn = () => {
     setIsLogged(true);
   };
@@ -192,6 +200,7 @@ function App() {
   }, [count, filteredMovies, isFiltered, movies]);
 
 
+
   useEffect(() => {
     if (window.localStorage.getItem('token')) {
       const token = window.localStorage.getItem('token');
@@ -205,17 +214,24 @@ function App() {
   }, []);
 
   useEffect(() => {
-    Api.getUsersSavFilms().then((res) => {
-      setSavMovies(res.data);
-      localStorage.setItem('savMovies', JSON.stringify(res.data));
-      setFilteredSavMovies(res.data);
-    });
+    if (isLogged) {
+      Api.getUsersSavFilms().then((res) => {
+        setSavMovies(res.data);
+        localStorage.setItem('savMovies', JSON.stringify(res.data));
+        setFilteredSavMovies(res.data);
+      });
+    }
   }, [isLogged]);
 
+  // useEffect(() => {
+  //   setShownMovies(JSON.parse(localStorage.getItem('shownMovies')));
+  //   setFilteredSavMovies(JSON.parse(localStorage.getItem('filteredSavMovies')));
+  // }, [isLogged]);
+
   useEffect(() => {
-    setShownMovies(JSON.parse(localStorage.getItem('shownMovies')));
-    setFilteredSavMovies(JSON.parse(localStorage.getItem('filteredSavMovies')));
-  }, []);
+    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+    localStorage.setItem('shownMovies', JSON.stringify(shownMovies));
+  }, [shownMovies, filteredMovies]);
 
   useEffect(() => {
     setUnvisiable(false);

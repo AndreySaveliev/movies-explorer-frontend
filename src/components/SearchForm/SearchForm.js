@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 function SearchForm({ searchMovie, isSaved }) {
   const [checked, setCheked] = useState(localStorage.getItem('switcher') === true);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState(localStorage.getItem('input') || '');
 
   const handheChangeInput = (e) => {
     setInput(e.target.value);
