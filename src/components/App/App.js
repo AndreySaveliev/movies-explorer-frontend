@@ -18,8 +18,8 @@ import Popup from '../Popup/Popup';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('userData')));
-  const [isLogged, setIsLogged] = useState(false);
   const [movies, setMovies] = useState([]);
+  const [isLogged, setIsLogged] = useState(JSON.parse(localStorage.getItem('isLogged')));
   const [shownMovies, setShownMovies] = useState(JSON.parse(localStorage.getItem('shownMovies')));
   const [count, setCount] = useState(3);
   const [savMovies, setSavMovies] = useState([]);
