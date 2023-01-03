@@ -16,13 +16,16 @@ import Preloader from '../Preloader/Preloader';
 import Popup from '../Popup/Popup';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('userData')));
-  const [isLogged, setIsLogged] = useState(JSON.parse(localStorage.getItem('isLogged')));
-  const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')));
-  const [shownMovies, setShownMovies] = useState(JSON.parse(localStorage.getItem('shownMovies')));
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem('userData')) || {}
+  );
+  const [isLogged, setIsLogged] = useState(JSON.parse(localStorage.getItem('isLogged')) || false);
+  const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
+  const [shownMovies, setShownMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const [count, setCount] = useState(3);
   const [savMovies, setSavMovies] = useState([]);
-  const [filteredSavMovies, setFilteredSavMovies] = useState([])
+  const [filteredSavMovies, setFilteredSavMovies] = useState([]);
   const [isLoaded, setIsLoaded] = useState(true);
   const [unvisiable, setUnvisiable] = useState(true);
   const formValidation = useFormWithValidation();
