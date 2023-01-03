@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({ isSaved, shownMovies, handleSaveFilm, savMovies, handleUnsaveFiml, filteredSavMovies}) {
