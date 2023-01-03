@@ -80,15 +80,17 @@ function App() {
   };
 
   const searchByWordinSavFilms = (checked, input) => {
+    setCount(3);
     if (!input && !checked) {
-      setCount(3)
-      return savMovies
+      return savMovies;
     } else if (!input && checked) {
-      return savMovies.filter((m) => m.duration <= 40)
+      return savMovies.filter((m) => m.duration <= 40);
     } else if (input && checked) {
-      return savMovies.filter((m) => m.nameRU.toLowerCase().includes(input.toLowerCase()) && m.duration <= 40)
+      return savMovies.filter(
+        (m) => m.nameRU.toLowerCase().includes(input.toLowerCase()) && m.duration <= 40
+      );
     } else if (input && !checked) {
-      return savMovies.filter((m) => m.nameRU.toLowerCase().includes(input.toLowerCase()))
+      return savMovies.filter((m) => m.nameRU.toLowerCase().includes(input.toLowerCase()));
     }
   };
 
