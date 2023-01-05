@@ -8,7 +8,6 @@ function Profile({
   handleLogOut,
   formValidation,
   setSavMovies,
-  setShownMovies
 }) {
   const navigate = useNavigate();
   const currentUser = useContext(CurrentUserContext);

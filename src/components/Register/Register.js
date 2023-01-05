@@ -10,7 +10,8 @@ function Register({
   isLogged,
   setIsPopupClosed,
   setPopupMessage,
-  setPopupStatus
+  setPopupStatus,
+  currentUser
 }) {
   const navigate = useNavigate();
   const formValidation = useFormWithValidation();
@@ -38,12 +39,14 @@ function Register({
       .then(() => {
         Api.signin(email, password)
           .then((res) => {
-            handleSetCurrentUser(res.data);
-            handleLogIn();
-            localStorage.setItem('isLogged', true);
-            localStorage.setItem('token', res.token);
-            localStorage.setItem('userData', JSON.stringify(res.data));
-            navigate('/movies');
+            if (res) {
+              handleSetCurrentUser(res.data);
+              handleLogIn();
+              localStorage.setItem('isLogged', true);
+              localStorage.setItem('token', res.token);
+              localStorage.setItem('userData', JSON.stringify(res.data));
+              navigate('/movies');
+            }
           })
           .catch((err) => {
             console.log(err);
@@ -51,9 +54,9 @@ function Register({
             setPopupStatus(false)
             setIsPopupClosed(false);
           });
-      })
-      .then(() => {
-        setIsLoaded(true);
+        })
+        .then(() => {
+          setIsLoaded(true);
       })
       .catch((err) => {
         formValidation.setIsValid(true)
@@ -64,7 +67,7 @@ function Register({
         setIsPopupClosed(false);
       });
   };
-
+  
   useEffect(() => {
     if (isLogged) {
       navigate(-1)

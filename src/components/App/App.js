@@ -22,8 +22,7 @@ function App() {
   const [isLogged, setIsLogged] = useState(JSON.parse(localStorage.getItem('isLogged')) || false);
   const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
   const [shownMovies, setShownMovies] = useState(
-    JSON.parse(localStorage.getItem('shownMovies'))
-);
+    JSON.parse(localStorage.getItem('shownMovies')) || []);
   const [filteredMovies, setFilteredMovies] = useState(
     JSON.parse(localStorage.getItem('filteredMovies'))
   );
@@ -188,20 +187,22 @@ function App() {
 
   useEffect(() => {
     let part;
-      if (filteredMovies.length !== 0 && window.innerWidth >= 1280) {
-        part = filteredMovies.slice(0, 12 + count);
+    if (filteredMovies) {
+      if (filteredMovies?.length !== 0 && window.innerWidth >= 1280) {
+        part = filteredMovies?.slice(0, 12 + count);
         setShownMovies(part);
       }
-      if (filteredMovies.length !== 0 && window.innerWidth < 1280 && window.innerWidth >= 768) {
-        part = filteredMovies.slice(0, 8 + count);
+      if (filteredMovies?.length !== 0 && window.innerWidth < 1280 && window.innerWidth >= 768) {
+        part = filteredMovies?.slice(0, 8 + count);
         setShownMovies(part);
       }
-      if (filteredMovies.length !== 0 && window.innerWidth < 768 && window.innerWidth >= 320) {
-        part = filteredMovies.slice(0, 5 + count);
+      if (filteredMovies?.length !== 0 && window.innerWidth < 768 && window.innerWidth >= 320) {
+        part = filteredMovies?.slice(0, 5 + count);
         setShownMovies(part);
       }
+    }
     window.localStorage.setItem('count', JSON.stringify(count));
-  }, [count, filteredMovies, isFiltered]);
+  }, [count, filteredMovies]);
 
   useEffect(() => {
     if (!isPopupClosed) {
@@ -301,7 +302,7 @@ function App() {
                   handleChangeUserData={handleChangeUserData}
                   handleLogOut={handleLogOut}
                   formValidation={formValidation}
-                  setShownMovies={setShownMovies}
+                  // setShownMovies={setShownMovies}
                   setSavMovies={setSavMovies}
                 />
               </ProtectedRoute>
@@ -312,6 +313,7 @@ function App() {
             path="/signup"
             element={
               <Register
+              currentUser={currentUser}
                 setPopupMessage={setPopupMessage}
                 setPopupStatus={setPopupStatus}
                 setIsPopupClosed={setIsPopupClosed}
