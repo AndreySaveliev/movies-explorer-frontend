@@ -22,11 +22,13 @@ function App() {
   const [isLogged, setIsLogged] = useState(JSON.parse(localStorage.getItem('isLogged')) || false);
   const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
   const [shownMovies, setShownMovies] = useState(
-    JSON.parse(localStorage.getItem('shownMovies')) || []
+    JSON.parse(localStorage.getItem('shownMovies'))
 );
+// const [shownMovies, setShownMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState(
-    JSON.parse(localStorage.getItem('filteredMovies')) || []
+    JSON.parse(localStorage.getItem('filteredMovies'))
   );
+  // const [filteredMovies, setFilteredMovies] = useState([]);
   const [count, setCount] = useState(3);
   const [savMovies, setSavMovies] = useState([]);
   const [filteredSavMovies, setFilteredSavMovies] = useState([]);
@@ -62,8 +64,6 @@ function App() {
       setShownMovies(searchByWord(checked, input).slice(0, 12));
       setFilteredMovies(searchByWord(checked, input));
     }
-    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-    localStorage.setItem('shownMovies', JSON.stringify(shownMovies));
   };
 
   const searchByWord = (checked, input) => {
@@ -79,8 +79,9 @@ function App() {
       setIsFiltered(true);
       return movies.filter(
         (m) => m.nameRU.toLowerCase().includes(input.toLowerCase()) && m.duration <= 40
-      );
-    } else if (input && !checked) {
+        );
+      } else if (input && !checked) {
+        console.log('qwe')
       setIsFiltered(true);
       return movies.filter((m) => m.nameRU.toLowerCase().includes(input.toLowerCase()));
     }
@@ -189,9 +190,6 @@ function App() {
   useEffect(() => {
     let part;
     if (isFiltered) {
-      part = filteredMovies.slice(0, 12 + count);
-      setShownMovies(part);
-    } else {
       if (filteredMovies.length !== 0 && window.innerWidth >= 1280) {
         part = filteredMovies.slice(0, 12 + count);
         setShownMovies(part);
