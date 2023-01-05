@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Api } from '../../utils/MainApi';
 import { useState } from 'react';
@@ -8,7 +8,9 @@ function Login({
   handleLogIn,
   setIsLoaded,
   setIsPopupClosed,
-  setPopupMessage
+  setPopupMessage,
+  isLogged,
+  setPopupStatus
 }) {
   const navigate = useNavigate();
   const formValidation = useFormWithValidation();
@@ -26,6 +28,7 @@ function Login({
 
   const handleSubmit = () => {
     setIsLoaded(false);
+    formValidation.setIsValid(false)
     Api.signin(email, password)
       .then((res) => {
         if (res) {
@@ -39,9 +42,11 @@ function Login({
         }
       })
       .catch((err) => {
+        formValidation.setIsValid(true)
         setIsLoaded(true);
         console.log(err);
         setPopupMessage('Не удалось войти');
+        setPopupStatus(false)
         setIsPopupClosed(false);
       });
   };

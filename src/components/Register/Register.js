@@ -9,7 +9,8 @@ function Register({
   setIsLoaded,
   isLogged,
   setIsPopupClosed,
-  setPopupMessage
+  setPopupMessage,
+  setPopupStatus
 }) {
   const navigate = useNavigate();
   const formValidation = useFormWithValidation();
@@ -32,6 +33,8 @@ function Register({
 
   const handleSubmit = () => {
     setIsLoaded(false);
+    formValidation.setIsValid(false)
+    console.log(formValidation)
     Api.signup(name, email, password)
       .then(() => {
         Api.signin(email, password)
@@ -45,6 +48,7 @@ function Register({
           .catch((err) => {
             console.log(err);
             setPopupMessage('Не удалось войти');
+            setPopupStatus(false)
             setIsPopupClosed(false);
           });
       })
@@ -52,8 +56,11 @@ function Register({
         setIsLoaded(true);
       })
       .catch((err) => {
+        formValidation.setIsValid(true)
+        setIsLoaded(true);
         console.log(err);
-        setPopupMessage('Не удалось зареистрироваться');
+        setPopupMessage('Не удалось зарегистрироваться');
+        setPopupStatus(false)
         setIsPopupClosed(false);
       });
   };
