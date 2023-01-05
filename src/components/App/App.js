@@ -61,6 +61,8 @@ function App() {
     if (isSaved) {
       setFilteredSavMovies(searchByWordinSavFilms(checked, input));
     } else {
+      input = localStorage.getItem('input');
+      checked = JSON.parse(localStorage.getItem('switcher'));
       setShownMovies(searchByWord(checked, input).slice(0, 12));
       setFilteredMovies(searchByWord(checked, input));
     }
@@ -81,7 +83,6 @@ function App() {
         (m) => m.nameRU.toLowerCase().includes(input.toLowerCase()) && m.duration <= 40
         );
       } else if (input && !checked) {
-        console.log('qwe')
       setIsFiltered(true);
       return movies.filter((m) => m.nameRU.toLowerCase().includes(input.toLowerCase()));
     }
