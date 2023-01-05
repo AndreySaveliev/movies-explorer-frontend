@@ -24,11 +24,9 @@ function App() {
   const [shownMovies, setShownMovies] = useState(
     JSON.parse(localStorage.getItem('shownMovies'))
 );
-// const [shownMovies, setShownMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState(
     JSON.parse(localStorage.getItem('filteredMovies'))
   );
-  // const [filteredMovies, setFilteredMovies] = useState([]);
   const [count, setCount] = useState(3);
   const [savMovies, setSavMovies] = useState([]);
   const [filteredSavMovies, setFilteredSavMovies] = useState([]);
@@ -190,7 +188,6 @@ function App() {
 
   useEffect(() => {
     let part;
-    if (isFiltered) {
       if (filteredMovies.length !== 0 && window.innerWidth >= 1280) {
         part = filteredMovies.slice(0, 12 + count);
         setShownMovies(part);
@@ -203,7 +200,6 @@ function App() {
         part = filteredMovies.slice(0, 5 + count);
         setShownMovies(part);
       }
-    }
     window.localStorage.setItem('count', JSON.stringify(count));
   }, [count, filteredMovies, isFiltered]);
 
@@ -236,11 +232,6 @@ function App() {
       });
     }
   }, [isLogged]);
-
-  // useEffect(() => {
-  //   setShownMovies(JSON.parse(localStorage.getItem('shownMovies')));
-  //   setFilteredSavMovies(JSON.parse(localStorage.getItem('filteredSavMovies')));
-  // }, [isLogged]);
 
   useEffect(() => {
     localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
