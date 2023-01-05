@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 function SearchForm({ searchMovie, isSaved }) {
-  const [checked, setCheked] = useState(localStorage.getItem('switcher') === true);
+  const [checked, setCheked] = useState(false);
   const [input, setInput] = useState('');
 
   const handheChangeInput = (e) => {
@@ -24,10 +24,14 @@ function SearchForm({ searchMovie, isSaved }) {
       setCheked(JSON.parse(localStorage.getItem('switcher')));
     }
   }, [isSaved]);
-
+  
   useEffect(
     (event) => {
-      searchMovie(event, isSaved, checked, input);
+      let input
+      if (!isSaved) {
+        input = localStorage.getItem('input');
+      }
+        searchMovie(event, isSaved, checked, input);
     },
     [checked]
   );
