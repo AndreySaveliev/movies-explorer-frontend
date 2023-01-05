@@ -65,6 +65,12 @@ function Register({
       });
   };
 
+  useEffect(() => {
+    if (isLogged) {
+      navigate(-1)
+    }
+  }, [isLogged])
+
   return (
     <section className="register">
       <div className="register__header">

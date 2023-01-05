@@ -51,6 +51,12 @@ function Login({
       });
   };
 
+  useEffect(() => {
+    if (isLogged) {
+      navigate(-1)
+    }
+  }, [isLogged])
+
   return (
     <section className="login">
       <div className="login__header">
