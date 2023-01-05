@@ -1,8 +1,6 @@
 .popup {
-  width: 350px;
+  width: 250px;
   position: absolute;
-  background-color: #272727;
-  transform: translate(41.5vw, 45vh);
   background-size: contain;
   background-repeat: no-repeat;
   background-position-y: 25%;
@@ -10,14 +8,24 @@
   background-size: 25%;
   border-radius: 10px;
   z-index: 2;
+  bottom: 20px;
+  right: 20px;
+}
+
+.popup_success {
+  background-color: #49533d;
+} 
+
+.popup_fail {
+  background-color: #503939;
 }
 
 .popup__hidden {
-  visibility: hidden;
+  display: none;
 }
 
 .popup__text {
-  width: 270px;
+  width: calc(100% - 25px);
   font-family: 'Inter';
   font-weight: 400;
   font-size: 18px;
