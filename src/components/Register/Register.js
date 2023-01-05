@@ -43,6 +43,7 @@ function Register({
             localStorage.setItem('isLogged', true);
             localStorage.setItem('token', res.token);
             localStorage.setItem('userData', JSON.stringify(res.data));
+            navigate('/movies');
           })
           .catch((err) => {
             console.log(err);

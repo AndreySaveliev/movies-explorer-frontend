@@ -13,7 +13,7 @@ function MoviesCardList({
     <section className="moviescardlist">
       {isSaved ? (
         <div className="moviescardlist-wrapper">
-          <p className={`moviescardlist__notfound-text ${filteredSavMovies.length === 0 && 'moviescardlist__notfound-text_visible'}`}>{savMovies.length===0 ? "Вы ничего не добавили":'Ничего не найдено'}</p>
+          <p className={`moviescardlist__notfound-text ${filteredSavMovies?.length === 0 && 'moviescardlist__notfound-text_visible'}`}>{savMovies.length===0 ? "Вы ничего не добавили":'Ничего не найдено'}</p>
           {filteredSavMovies?.map((movie) => (
             <MoviesCard
               isSaved={true}
@@ -31,7 +31,7 @@ function MoviesCardList({
         </div>
       ) : (
         <div className="moviescardlist-wrapper">
-          <p className={`moviescardlist__notfound-text ${shownMovies.length === 0 && 'moviescardlist__notfound-text_visible'}`}>Ничего не найдено</p>
+          <p className={`moviescardlist__notfound-text ${shownMovies?.length === 0 && 'moviescardlist__notfound-text_visible'}`}>Ничего не найдено</p>
           {shownMovies?.map((movie) => (
             <MoviesCard
               isSaved={false}
