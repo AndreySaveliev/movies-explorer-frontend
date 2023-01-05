@@ -124,8 +124,9 @@ function App() {
       .then(setIsLoaded(false))
       .then(() => {
         const newSavMovies = savMovies.filter((movies) => movies._id !== id);
+        const newFilteredSavMovies = filteredSavMovies.filter((movies) => movies._id !== id)
         setFilteredSavMovies(() => {
-          return newSavMovies;
+          return newFilteredSavMovies;
         });
         setSavMovies(() => {
           return newSavMovies;
@@ -191,22 +192,21 @@ function App() {
       part = filteredMovies.slice(0, 12 + count);
       setShownMovies(part);
     } else {
-      if (movies.length !== 0 && window.innerWidth >= 1280) {
-        part = movies.slice(0, 12 + count);
+      if (filteredMovies.length !== 0 && window.innerWidth >= 1280) {
+        part = filteredMovies.slice(0, 12 + count);
         setShownMovies(part);
       }
-      if (movies.length !== 0 && window.innerWidth < 1280 && window.innerWidth >= 768) {
-        part = movies.slice(0, 8 + count);
+      if (filteredMovies.length !== 0 && window.innerWidth < 1280 && window.innerWidth >= 768) {
+        part = filteredMovies.slice(0, 8 + count);
         setShownMovies(part);
       }
-      if (movies.length !== 0 && window.innerWidth < 768 && window.innerWidth >= 320) {
-        part = movies.slice(0, 5 + count);
+      if (filteredMovies.length !== 0 && window.innerWidth < 768 && window.innerWidth >= 320) {
+        part = filteredMovies.slice(0, 5 + count);
         setShownMovies(part);
       }
     }
     window.localStorage.setItem('count', JSON.stringify(count));
-  }, [count, filteredMovies, isFiltered, movies]);
-
+  }, [count, filteredMovies, isFiltered]);
 
   useEffect(() => {
     if (!isPopupClosed) {
