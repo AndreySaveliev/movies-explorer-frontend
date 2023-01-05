@@ -38,6 +38,7 @@ function App() {
     JSON.parse(localStorage.getItem('isFiltered')) || false
   );
   const [popupMessage, setPopupMessage] = useState('');
+  const [popupStatus, setPopupStatus] = useState(true);
 
   const searchMovie = (event, isSaved, checked, input) => {
     if (event) {
@@ -106,12 +107,14 @@ function App() {
       .then((res) => {
         setSavMovies([...savMovies, res.data]);
         setPopupMessage('Фильм сохранен');
+        setPopupStatus(true)
         setIsPopupClosed(false);
       })
       .then(setIsLoaded(true))
       .catch((err) => {
         console.log(err);
         setPopupMessage('Не удалось сохранить фильм');
+        setPopupStatus(false)
         setIsPopupClosed(false);
       });
   };
@@ -128,10 +131,15 @@ function App() {
           return newSavMovies;
         });
       })
-      .then(setIsLoaded(true))
+      .then(() => {
+        setIsLoaded(true)
+        setPopupMessage('Фильм удален')
+        setIsPopupClosed(false);
+      })
       .catch((err) => {
         console.log(err);
         setPopupMessage('Не удалось удалить фильм');
+        setPopupStatus(false)
         setIsPopupClosed(false);
       });
   };
@@ -167,11 +175,13 @@ function App() {
       .then(() => {
         setIsPopupClosed(false);
         setPopupMessage('Данные успешно изменены');
+        setPopupStatus(true)
       })
       .catch((err) => {
         console.log(err);
-        setPopupMessage('Не удалось изменть почту или имя');
         setIsPopupClosed(false);
+        setPopupMessage('Не удалось изменть почту или имя');
+        setPopupStatus(false)
       });
   };
 
@@ -198,6 +208,13 @@ function App() {
   }, [count, filteredMovies, isFiltered, movies]);
 
 
+  useEffect(() => {
+    if (!isPopupClosed) {
+      setTimeout(() => {
+        setIsPopupClosed(true)
+      }, 2000)
+    }
+  }, [isPopupClosed])
 
   useEffect(() => {
     if (window.localStorage.getItem('token')) {
@@ -248,6 +265,7 @@ function App() {
           isPopupClosed={isPopupClosed}
           setIsPopupClosed={setIsPopupClosed}
           popupMessage={popupMessage}
+          popupStatus={popupStatus}
         />
         <Routes>
           <Route exact path="/" element={<Main isLogged={isLogged} />} />
@@ -305,6 +323,7 @@ function App() {
             element={
               <Register
                 setPopupMessage={setPopupMessage}
+                setPopupStatus={setPopupStatus}
                 setIsPopupClosed={setIsPopupClosed}
                 handleLogIn={handleLogIn}
                 handleSetCurrentUser={handleSetCurrentUser}
@@ -319,10 +338,12 @@ function App() {
             element={
               <Login
                 setPopupMessage={setPopupMessage}
+                setPopupStatus={setPopupStatus}
                 setIsPopupClosed={setIsPopupClosed}
                 handleSetCurrentUser={handleSetCurrentUser}
                 handleLogIn={handleLogIn}
                 setIsLoaded={setIsLoaded}
+                isLogged={isLogged}
               />
             }
           />
