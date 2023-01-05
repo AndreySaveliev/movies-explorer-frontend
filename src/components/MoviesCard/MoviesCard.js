@@ -11,7 +11,7 @@ function MoviesCard({
   handleUnsaveFiml,
   shownMovies,
   filteredSavMovies,
-  savMovies
+  savMovies,
 }) {
   const [isLiked, setIsLiked] = useState(false);
   const [movieToUnlike, setMovieToUnlike] = useState('');
@@ -30,6 +30,14 @@ function MoviesCard({
       }
     }
   };
+
+  const handleShowTrailer = (movie) => {
+    if (isSaved) {
+      window.open(movie.trailer)
+    } else {
+      window.open(movie.trailerLink)
+    }
+  }
 
   const findMovInSavedMovies = (movie) => {
     savMovies.forEach((mov) => {
@@ -61,7 +69,7 @@ function MoviesCard({
 
   return (
     <div className="moviecard">
-      <img className="moviecard__img" src={img} alt="movie"></img>
+      <img className="moviecard__img" src={img} alt="movie" onClick={() => handleShowTrailer(movie)}/>
       <h2 className="moviecard__title">{title}</h2>
       <p className="moviecard__duration">{duration}</p>
       <button
