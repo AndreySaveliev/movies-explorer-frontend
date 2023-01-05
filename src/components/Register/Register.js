@@ -34,7 +34,6 @@ function Register({
   const handleSubmit = () => {
     setIsLoaded(false);
     formValidation.setIsValid(false)
-    console.log(formValidation)
     Api.signup(name, email, password)
       .then(() => {
         Api.signin(email, password)

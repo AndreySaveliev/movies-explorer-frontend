@@ -40,7 +40,6 @@ function App() {
   const [popupMessage, setPopupMessage] = useState('');
 
   const searchMovie = (event, isSaved, checked, input) => {
-    console.log(event, isSaved, checked, input )
     if (event) {
       event.preventDefault();
     }
@@ -60,7 +59,6 @@ function App() {
       setFilteredSavMovies(searchByWordinSavFilms(checked, input));
     } else {
       setShownMovies(searchByWord(checked, input).slice(0, 12));
-      console.log(searchByWord(checked, input).slice(0, 12))
       setFilteredMovies(searchByWord(checked, input));
     }
     localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
