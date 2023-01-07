@@ -1,0 +1,12 @@
+.savedmovies {
+  background-color: #202020;
+  min-height: 100vh;
+}
+.savedmovies__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.savmovies__btn_more-hidden {
+  visibility: hidden;
+}

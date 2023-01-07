@@ -1,13 +1,65 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+function SearchForm({ searchMovie, isSaved }) {
+  const [checked, setCheked] = useState(false);
+  const [input, setInput] = useState('');
 
-function SearchForm() {
+  const handheChangeInput = (e) => {
+    setInput(e.target.value);
+    if (!isSaved) {
+      localStorage.setItem('input', e.target.value);
+    }
+  };
+
+  const handeChangesSwitcher = (event) => {
+    setCheked(event.target.checked);
+    if (!isSaved) {
+      localStorage.setItem('switcher', event.target.checked);
+    }
+  };
+
+  useEffect(() => {
+    if (!isSaved) {
+      setInput(localStorage.getItem('input'));
+      setCheked(JSON.parse(localStorage.getItem('switcher')));
+    }
+  }, [isSaved]);
+  
+  useEffect(
+    (event) => {
+      if (!isSaved) {
+        searchMovie(event, isSaved);
+      } else {
+        searchMovie(event, isSaved, checked, input);
+      }
+    },
+    [checked]
+  );
+
+  
+
   return (
     <section className="searchform">
-      <form className="searchform__form" noValidate>
-        <input className="searchform__input" placeholder="Фильм" required></input>
-        <button className="searchform__btn"></button>
+      <form
+        className="searchform__form"
+        noValidate
+        onSubmit={(event) => searchMovie(event, isSaved, checked, input)}
+      >
+        <input
+          className="searchform__input"
+          placeholder="Фильм"
+          required
+          value={input}
+          onChange={handheChangeInput}
+        ></input>
+        <button className="searchform__btn" type="submit"></button>
         <div className="searchform__toggle">
-          <input type="checkbox" className="searchform__checkbox"></input>
+          <input
+            type="checkbox"
+            className="searchform__checkbox"
+            checked={checked}
+            onChange={(e) => handeChangesSwitcher(e)}
+          ></input>
           <label className="searchform__switch"></label>
           <p className="searchform__text">Короткометражки</p>
         </div>
